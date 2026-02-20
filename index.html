@@ -1,0 +1,1931 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="Anna">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="theme-color" content="#0c0c0e">
+  <title>Anna — Training Plan 2026</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=IBM+Plex+Mono:wght@400;500&family=Plus+Jakarta+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg:          #0c0c0e;
+      --surface:     #141416;
+      --surface-2:   #1c1c1f;
+      --border:      rgba(255,255,255,0.07);
+      --border-2:    rgba(255,255,255,0.12);
+      --violet:      #9b72e8;
+      --violet-dim:  rgba(155,114,232,0.10);
+      --violet-mid:  rgba(155,114,232,0.22);
+      --text:        #f0ede8;
+      --text-2:      #c8c4be;
+      --text-3:      #908c88;
+      --red:         #e05050;
+      --cyan:        #38bcd4;
+      --green:       #48c878;
+      --r:           10px;
+    }
+    *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; -webkit-tap-highlight-color: transparent; }
+    html { scroll-behavior: smooth; }
+    button, a, [onclick] { touch-action: manipulation; }
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 14px;
+      line-height: 1.5;
+      -webkit-font-smoothing: antialiased;
+      min-height: 100vh;
+    }
+
+    /* ── HEADER ─────────────────────────────────── */
+    .site-header {
+      padding: 28px 20px 0;
+      max-width: 860px;
+      margin: 0 auto;
+    }
+    .header-row {
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      gap: 12px;
+    }
+    .site-title {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(36px, 8vw, 52px);
+      letter-spacing: 3px;
+      line-height: 1;
+      color: var(--text);
+    }
+    .site-title em { color: var(--violet); font-style: normal; }
+    .header-meta {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 11px;
+      color: var(--text-2);
+      text-align: right;
+      line-height: 1.7;
+    }
+    .header-rule {
+      height: 1px;
+      background: var(--border);
+      margin-top: 18px;
+    }
+
+    /* ── DAY TABS ────────────────────────────────── */
+    .tabs-wrap {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(12,12,14,0.96);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border-bottom: 1px solid var(--border);
+    }
+    .tabs-inner {
+      max-width: 860px;
+      margin: 0 auto;
+      padding: 0 16px;
+      display: flex;
+      overflow-x: auto;
+      scrollbar-width: none;
+      gap: 2px;
+    }
+    .tabs-inner::-webkit-scrollbar { display: none; }
+    .tab {
+      flex-shrink: 0;
+      padding: 10px 14px 8px;
+      cursor: pointer;
+      border-radius: 8px 8px 0 0;
+      border-bottom: 2px solid transparent;
+      transition: all 0.18s;
+    }
+    .tab-day {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 9px;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: var(--text-3);
+      margin-bottom: 3px;
+    }
+    .tab-name {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 17px;
+      letter-spacing: 1.5px;
+      color: var(--text-2);
+      line-height: 1;
+    }
+    .tab:hover .tab-name { color: var(--text); }
+    .tab.active { border-bottom-color: var(--violet); }
+    .tab.active .tab-name { color: var(--violet); }
+    .tab.active .tab-day { color: rgba(155,114,232,0.55); }
+    .tab.today .tab-day { color: var(--green) !important; }
+
+    /* ── TODAY BUTTON ────────────────────────────── */
+    .today-row { margin-top: 12px; display: flex; gap: 10px; flex-wrap: wrap; }
+    .today-btn, .complete-btn {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 10px;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      padding: 8px 16px;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: all 0.18s;
+    }
+    .today-btn {
+      background: rgba(72,200,120,0.08);
+      border: 1px solid rgba(72,200,120,0.28);
+      color: var(--green);
+    }
+    .today-btn:hover, .today-btn:active { background: rgba(72,200,120,0.18); }
+    .today-btn.is-today {
+      background: rgba(72,200,120,0.18);
+      border-color: var(--green);
+      font-weight: 600;
+    }
+    .complete-btn {
+      background: var(--violet-dim);
+      border: 1px solid var(--violet-mid);
+      color: var(--violet);
+    }
+    .complete-btn:hover, .complete-btn:active { background: var(--violet-mid); }
+
+    /* ── PROGRESS PAGE ───────────────────────────── */
+    .prog-summary {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1px;
+      background: var(--border);
+      border: 1px solid var(--border);
+      border-radius: var(--r);
+      overflow: hidden;
+      margin-bottom: 24px;
+    }
+    .ps-item {
+      background: var(--surface);
+      padding: 16px 12px;
+      text-align: center;
+    }
+    .ps-val {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 36px;
+      color: var(--violet);
+      line-height: 1;
+    }
+    .ps-lbl {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 9px;
+      letter-spacing: 1.2px;
+      text-transform: uppercase;
+      color: var(--text-3);
+      margin-top: 4px;
+    }
+    .prog-ex-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--r);
+      overflow: hidden;
+      margin-bottom: 10px;
+    }
+    .prog-card-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 14px 16px 8px;
+      gap: 12px;
+    }
+    .prog-name {
+      font-size: 15px;
+      font-weight: 600;
+      color: var(--text);
+      flex: 1;
+    }
+    .prog-day-tag {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 9px;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: var(--violet);
+      background: var(--violet-dim);
+      border: 1px solid var(--violet-mid);
+      padding: 3px 8px;
+      border-radius: 4px;
+      flex-shrink: 0;
+    }
+    /* ── DELOAD BANNER ───────────────────────────── */
+    .deload-banner {
+      background: var(--violet-dim);
+      border: 1px solid var(--violet-mid);
+      border-left: 3px solid var(--violet);
+      border-radius: var(--r);
+      padding: 14px 16px;
+      margin-bottom: 20px;
+    }
+    .deload-title {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 10px;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: var(--violet);
+      margin-bottom: 5px;
+    }
+    .deload-desc { font-size: 13px; color: var(--text-2); line-height: 1.55; }
+
+    /* ── COMBINED CHART ──────────────────────────── */
+    .combo-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--r);
+      overflow: hidden;
+      margin-bottom: 20px;
+    }
+    .combo-card-head {
+      padding: 14px 16px 8px;
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 10px;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: var(--text-3);
+    }
+    .combo-svg-wrap { padding: 0 16px 8px; }
+    .combo-svg { width: 100%; height: 160px; display: block; }
+    .combo-legend {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px 16px;
+      padding: 8px 16px 14px;
+      border-top: 1px solid var(--border);
+    }
+    .legend-item { display: flex; align-items: center; gap: 6px; }
+    .legend-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+    .legend-name { font-size: 11px; color: var(--text-2); }
+
+    /* ── WEEKLY VOLUME ───────────────────────────── */
+    .vol-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--r);
+      overflow: hidden;
+      margin-bottom: 20px;
+    }
+    .vol-card-head {
+      padding: 14px 16px 10px;
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 10px;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: var(--text-3);
+    }
+    .vol-row {
+      display: flex;
+      align-items: center;
+      padding: 6px 16px;
+      gap: 10px;
+    }
+    .vol-row + .vol-row { border-top: 1px solid var(--border); }
+    .vol-label {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 10px;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+      color: var(--text-2);
+      width: 72px;
+      flex-shrink: 0;
+    }
+    .vol-bar-wrap { flex: 1; height: 10px; background: var(--surface-2); border-radius: 5px; overflow: hidden; }
+    .vol-bar { height: 100%; border-radius: 5px; transition: width 0.4s ease; }
+    .vol-num {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 10px;
+      color: var(--text-3);
+      width: 38px;
+      text-align: right;
+      flex-shrink: 0;
+    }
+
+    /* ── PER-EXERCISE EXPANDABLE CHART ───────────── */
+    .spark-wrap { padding: 0 16px 2px; cursor: pointer; }
+    .spark-thumb .spark-svg { width: 100%; height: 48px; display: block; }
+    .spark-full { display: none; }
+    .spark-wrap.expanded .spark-thumb { display: none; }
+    .spark-wrap.expanded .spark-full { display: block; }
+    .full-chart-svg { width: 100%; height: 160px; display: block; }
+    .spark-axis {
+      display: flex;
+      justify-content: space-between;
+      padding: 4px 0 8px;
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 9px;
+      color: var(--text-3);
+    }
+    .spark-hint { color: rgba(155,114,232,0.55); }
+
+    /* ── PROGRESS STATS ──────────────────────────── */
+    .prog-stats-row {
+      display: flex;
+      border-top: 1px solid var(--border);
+    }
+    .prog-stat {
+      flex: 1;
+      padding: 10px 12px;
+      text-align: center;
+      border-right: 1px solid var(--border);
+    }
+    .prog-stat:last-child { border-right: none; }
+    .prog-stat-val {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 20px;
+      font-weight: 500;
+      color: var(--text);
+      line-height: 1.2;
+    }
+    .prog-stat-val.up   { color: var(--green); }
+    .prog-stat-val.down { color: var(--red); }
+    .prog-stat-lbl {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 9px;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      color: var(--text-3);
+      margin-top: 3px;
+    }
+    .prog-suggestion {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 11px;
+      color: var(--green);
+      padding: 8px 16px 12px;
+      border-top: 1px solid var(--border);
+    }
+    .prog-empty {
+      text-align: center;
+      color: var(--text-3);
+      font-size: 14px;
+      line-height: 1.8;
+      padding: 48px 24px;
+    }
+
+    /* ── MAIN ────────────────────────────────────── */
+    .main {
+      max-width: 860px;
+      margin: 0 auto;
+      padding: 28px 20px 80px;
+    }
+
+    /* ── DAY HEADER ──────────────────────────────── */
+    .day-panel { display: none; animation: fadeIn 0.22s ease; }
+    .day-panel.active { display: block; }
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; } }
+    .day-head { margin-bottom: 20px; }
+    .day-title {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(48px, 12vw, 72px);
+      letter-spacing: 4px;
+      line-height: 0.9;
+      color: var(--text);
+    }
+    .day-meta {
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 8px;
+    }
+    .pill {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 9px;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      padding: 4px 10px;
+      border-radius: 20px;
+    }
+    .pill-strength { background: var(--violet-dim); border: 1px solid var(--violet-mid); color: var(--violet); }
+    .pill-recovery { background: rgba(72,200,120,0.08); border: 1px solid rgba(72,200,120,0.25); color: var(--green); }
+    .pill-rest     { background: rgba(144,140,136,0.12); border: 1px solid rgba(144,140,136,0.2); color: var(--text-3); }
+    .day-focus { font-size: 14px; color: var(--text-2); }
+    .day-dur {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 11px;
+      color: var(--text-3);
+    }
+
+    /* ── WARMUP ──────────────────────────────────── */
+    .warmup {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-left: 3px solid var(--violet);
+      border-radius: var(--r);
+      padding: 12px 14px;
+      margin-bottom: 20px;
+    }
+    .warmup-lbl {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 9px;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: var(--violet);
+      margin-bottom: 5px;
+    }
+    .warmup-text { font-size: 13px; color: var(--text-2); line-height: 1.55; }
+
+    /* ── SECTION LABEL ───────────────────────────── */
+    .sec-label {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 9px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--text-3);
+      margin: 20px 0 8px;
+    }
+
+    /* ── FINISHER DIVIDER ────────────────────────── */
+    .finisher-div {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin: 20px 0 8px;
+    }
+    .finisher-line { flex: 1; height: 1px; background: var(--border-2); }
+    .finisher-lbl {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 9px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--violet);
+      flex-shrink: 0;
+    }
+
+    /* ── EXERCISE LIST ───────────────────────────── */
+    .ex-list { display: flex; flex-direction: column; gap: 8px; }
+
+    /* ── EXERCISE CARD ───────────────────────────── */
+    .ex-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--r);
+      overflow: hidden;
+      transition: border-color 0.18s;
+      cursor: pointer;
+    }
+    .ex-card:hover { border-color: var(--border-2); }
+    .ex-card.open { border-color: rgba(155,114,232,0.3); }
+    .ex-card.priority { border-left: 3px solid var(--violet); }
+    .ex-row {
+      display: flex;
+      align-items: center;
+      gap: 0;
+      min-height: 76px;
+    }
+
+    /* Thumbnail */
+    .ex-thumb {
+      width: 80px;
+      height: 76px;
+      flex-shrink: 0;
+      position: relative;
+      overflow: hidden;
+      background: var(--surface-2);
+    }
+    .ex-ph {
+      position: absolute; inset: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 3px;
+    }
+    .ex-ph-icon { font-size: 20px; line-height: 1; }
+    .ex-ph-lbl {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 7px;
+      letter-spacing: 1px;
+      color: rgba(255,255,255,0.45);
+    }
+    .ex-thumb img {
+      position: absolute; inset: 0;
+      width: 100%; height: 100%;
+      object-fit: cover;
+      transition: opacity 0.3s;
+    }
+
+    /* Info */
+    .ex-info {
+      flex: 1;
+      padding: 10px 8px 10px 12px;
+      min-width: 0;
+    }
+    .ex-name {
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--text);
+      line-height: 1.2;
+      margin-bottom: 2px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .ex-priority-dot {
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      background: var(--violet);
+      flex-shrink: 0;
+    }
+    .ex-my-wt-row {
+      display: flex;
+      align-items: baseline;
+      gap: 3px;
+      margin-bottom: 4px;
+      min-height: 16px;
+    }
+    .ex-my-wt {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--green);
+      line-height: 1;
+    }
+    .ex-my-wt-unit {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 10px;
+      color: var(--text-3);
+      display: none;
+    }
+    .has-wt .ex-my-wt-unit { display: inline; }
+    .ex-mini-stats {
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 5px;
+    }
+    .ms {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 10px;
+      color: var(--text-3);
+    }
+    .ms.violet { color: var(--violet); }
+
+    /* Right side */
+    .ex-right {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      justify-content: space-between;
+      padding: 8px 12px 8px 4px;
+      gap: 4px;
+      height: 76px;
+      flex-shrink: 0;
+    }
+    .guide-btn {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 8px;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      color: var(--violet);
+      background: var(--violet-dim);
+      border: 1px solid var(--violet-mid);
+      padding: 4px 8px;
+      border-radius: 4px;
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      transition: background 0.15s;
+      white-space: nowrap;
+    }
+    .guide-btn:hover { background: var(--violet-mid); }
+    .ex-arrow {
+      font-size: 14px;
+      color: var(--text-3);
+      transition: transform 0.18s;
+      padding: 4px 2px;
+    }
+    .ex-card.open .ex-arrow { transform: rotate(180deg); }
+
+    /* detail panel */
+    .ex-detail {
+      display: none;
+      padding: 10px 12px 12px 12px;
+      border-top: 1px solid var(--border);
+    }
+    .ex-card.open .ex-detail { display: block; }
+    .ex-note {
+      font-size: 13px;
+      color: var(--text-2);
+      line-height: 1.6;
+    }
+    .ex-note strong { color: var(--text); }
+    .rpe-note {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 10px;
+      color: var(--violet);
+      background: var(--violet-dim);
+      border: 1px solid var(--violet-mid);
+      border-radius: 4px;
+      padding: 3px 9px;
+      display: inline-block;
+      margin-top: 6px;
+    }
+
+    /* ── RECOVERY / REST ──────────────────────────── */
+    .rec-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--r);
+      padding: 14px 16px;
+      margin-bottom: 10px;
+    }
+    .rec-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      margin-bottom: 6px;
+    }
+    .rec-name { font-weight: 600; font-size: 14px; color: var(--text); }
+    .rec-dur {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 11px;
+      color: var(--text-3);
+    }
+    .rec-zone {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 10px;
+      color: var(--green);
+      margin-bottom: 6px;
+    }
+    .rec-desc { font-size: 13px; color: var(--text-2); line-height: 1.55; }
+    .rest-block {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--r);
+      padding: 28px 20px;
+      text-align: center;
+    }
+    .rest-word {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 80px;
+      letter-spacing: 8px;
+      color: var(--text-3);
+      line-height: 1;
+      margin-bottom: 12px;
+    }
+    .rest-sub {
+      font-size: 14px;
+      color: var(--text-2);
+      margin-bottom: 14px;
+    }
+    .rest-list { display: flex; flex-direction: column; gap: 6px; align-items: center; }
+    .rest-item {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 12px;
+      color: var(--text-2);
+      display: flex;
+      gap: 10px;
+      align-items: center;
+    }
+    .rest-item::before { content: '—'; color: var(--violet); }
+
+    /* ── PROGRESSION CARD ────────────────────────── */
+    .prog-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--r);
+      padding: 16px;
+      margin-top: 24px;
+    }
+    .prog-title {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 19px;
+      letter-spacing: 2px;
+      color: var(--text);
+      margin-bottom: 14px;
+    }
+    .prog-row {
+      display: flex;
+      gap: 12px;
+      padding: 8px 0;
+      border-bottom: 1px solid var(--border);
+      align-items: flex-start;
+    }
+    .prog-row:last-child { border-bottom: none; }
+    .prog-dot { width: 8px; height: 8px; border-radius: 50%; margin-top: 5px; flex-shrink: 0; }
+    .prog-text { font-size: 13px; color: var(--text-2); line-height: 1.55; }
+    .prog-text strong { color: var(--text); }
+
+    /* ── DONE TRACKING ───────────────────────────── */
+    .ex-check {
+      width: 36px;
+      height: 76px;
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .ex-check-btn {
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      border: 2px solid var(--border-2);
+      background: transparent;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.18s;
+      font-size: 13px;
+      color: transparent;
+      cursor: pointer;
+      flex-shrink: 0;
+    }
+    .ex-check-btn:hover { border-color: var(--green); color: rgba(72,200,120,0.4); }
+    .ex-card.done .ex-check-btn {
+      background: var(--green);
+      border-color: var(--green);
+      color: #0c0c0e;
+    }
+    .ex-card.done { opacity: 0.45; }
+    .ex-card.done .ex-name { text-decoration: line-through; }
+
+    .day-reset {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 9px;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      color: var(--text-3);
+      background: none;
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      padding: 3px 9px;
+      cursor: pointer;
+      transition: all 0.18s;
+    }
+    .day-reset:hover { color: var(--text-2); border-color: var(--border-2); }
+
+    /* ── WEIGHT TRACKER ──────────────────────────── */
+    .wt-section {
+      margin-top: 12px;
+      padding-top: 12px;
+      border-top: 1px solid var(--border);
+    }
+    .wt-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 10px;
+    }
+    .wt-lbl {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 9px;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      color: var(--green);
+    }
+    .wt-plan {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 10px;
+      color: var(--text-3);
+    }
+    /* drum wheel weight picker */
+    .wt-drum-outer {
+      position: relative;
+      height: 144px;
+      overflow: hidden;
+      margin-bottom: 10px;
+      border-radius: 10px;
+      background: var(--surface-2);
+      border: 1px solid var(--border-2);
+    }
+    .wt-drum {
+      height: 100%;
+      overflow-y: scroll;
+      scroll-snap-type: y mandatory;
+      scrollbar-width: none;
+      -ms-overflow-style: none;
+      overscroll-behavior-y: contain;
+    }
+    .wt-drum::-webkit-scrollbar { display: none; }
+    .drum-item {
+      height: 48px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      scroll-snap-align: center;
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 20px;
+      font-weight: 400;
+      color: var(--text-3);
+      user-select: none;
+    }
+    .drum-item.selected {
+      color: var(--green);
+      font-size: 24px;
+      font-weight: 600;
+    }
+    .drum-fade-top, .drum-fade-bot {
+      position: absolute;
+      left: 0; right: 0;
+      height: 52px;
+      pointer-events: none;
+      z-index: 2;
+    }
+    .drum-fade-top {
+      top: 0;
+      background: linear-gradient(to bottom, var(--surface-2) 20%, transparent);
+    }
+    .drum-fade-bot {
+      bottom: 0;
+      background: linear-gradient(to top, var(--surface-2) 20%, transparent);
+    }
+    .drum-center-band {
+      position: absolute;
+      left: 16px; right: 16px;
+      top: 50%; transform: translateY(-50%);
+      height: 48px;
+      border-top: 1px solid var(--border-2);
+      border-bottom: 1px solid var(--border-2);
+      pointer-events: none;
+      z-index: 1;
+    }
+    .wt-last {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin-top: 6px;
+    }
+    .wt-last-lbl {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 9px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: var(--text-3);
+    }
+    .wt-last-val {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 11px;
+      color: var(--text-2);
+    }
+    .wt-suggest {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 10px;
+      color: var(--green);
+      background: rgba(72,200,120,0.1);
+      border: 1px solid rgba(72,200,120,0.25);
+      border-radius: 4px;
+      padding: 2px 8px;
+    }
+    .wt-empty { font-size: 11px; color: var(--text-3); font-style: italic; margin-top: 6px; }
+    .ex-note-wrap {
+      margin-top: 12px;
+      padding-top: 12px;
+      border-top: 1px solid var(--border);
+    }
+
+    /* ── TOAST ───────────────────────────────────── */
+    #toast {
+      position: fixed;
+      bottom: 100px;
+      left: 50%;
+      transform: translateX(-50%) translateY(12px);
+      background: var(--surface-2);
+      border: 1px solid var(--border-2);
+      border-radius: 8px;
+      padding: 10px 18px;
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 12px;
+      color: var(--text);
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.25s, transform 0.25s;
+      white-space: nowrap;
+      z-index: 999;
+    }
+    #toast.toast-show { opacity: 1; transform: translateX(-50%) translateY(0); }
+
+    /* ── MOBILE ──────────────────────────────────── */
+    @media (max-width: 640px) {
+      .site-header { padding: 12px 16px 0; }
+      .site-title { font-size: 26px; letter-spacing: 2px; }
+      .header-meta { display: none; }
+      .header-rule { margin-top: 10px; }
+
+      .tabs-wrap {
+        position: fixed;
+        top: auto; bottom: 0; left: 0; right: 0;
+        border-top: 1px solid var(--border-2);
+        border-bottom: none;
+        padding-bottom: env(safe-area-inset-bottom);
+      }
+      .tabs-inner { padding: 4px 0 0; justify-content: space-around; gap: 0; }
+      .tab {
+        flex: 1; text-align: center;
+        padding: 6px 2px 8px;
+        border-bottom: none; border-top: 2px solid transparent;
+        border-radius: 0; min-width: 0;
+      }
+      .tab.active { border-top-color: var(--violet); border-bottom-color: transparent; }
+      .tab-day  { font-size: 10px; letter-spacing: 1px; }
+      .tab-name { font-size: 15px; letter-spacing: 1px; }
+
+      .main { padding: 16px 12px calc(74px + env(safe-area-inset-bottom)) 12px; }
+
+      .day-title { font-size: 44px; }
+      .day-meta { gap: 6px; }
+      .day-focus { font-size: 15px; }
+      .day-dur { display: none; }
+      .pill { font-size: 11px; padding: 4px 12px; }
+
+      .sec-label { font-size: 10px; margin: 16px 0 6px; }
+      .ex-name { font-size: 15px; }
+      .ex-thumb { width: 76px; height: 76px; }
+      .ms { font-size: 11px; }
+      .guide-btn { font-size: 8px; padding: 5px 8px; }
+      .ex-detail { padding: 14px; }
+      .ex-note { font-size: 15px; line-height: 1.7; }
+      .ex-note-wrap .guide-btn { display: inline-flex; font-size: 13px; padding: 8px 14px; }
+      .rpe-note { font-size: 13px; padding: 4px 10px; }
+
+      .warmup { padding: 12px; }
+      .warmup-text { font-size: 14px; line-height: 1.65; }
+      .rec-card { padding: 14px; }
+      .rec-name { font-size: 15px; }
+      .rec-desc { font-size: 15px; line-height: 1.65; }
+      .rest-sub { font-size: 15px; }
+      .rest-item { font-size: 15px; }
+      .prog-card { margin-top: 16px; }
+      .prog-title { font-size: 18px; }
+      .prog-text { font-size: 15px; line-height: 1.6; }
+      .day-reset { font-size: 12px; padding: 5px 12px; }
+      .ps-val { font-size: 28px; }
+      .ps-lbl { font-size: 9px; }
+      .prog-name { font-size: 16px; }
+      .prog-stat-val { font-size: 18px; }
+      .prog-stat-lbl { font-size: 9px; }
+      .prog-suggestion { font-size: 13px; }
+      .combo-svg { height: 140px; }
+      .full-chart-svg { height: 140px; }
+      .legend-name { font-size: 12px; }
+      .vol-label { font-size: 11px; width: 64px; }
+      .deload-desc { font-size: 14px; }
+      .today-row { gap: 8px; }
+      .today-btn, .complete-btn { flex: 1; padding: 13px 8px; font-size: 12px; text-align: center; }
+      .wt-lbl  { font-size: 12px; }
+      .wt-plan { font-size: 13px; }
+      .wt-last-lbl { font-size: 12px; }
+      .wt-last-val { font-size: 14px; }
+      .wt-suggest  { font-size: 13px; padding: 4px 10px; }
+      .wt-empty    { font-size: 13px; }
+      #toast { bottom: calc(80px + env(safe-area-inset-bottom)); font-size: 13px; white-space: normal; text-align: center; max-width: 80vw; }
+    }
+  </style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="header-row">
+    <div class="site-title">ANNA<em>'S</em> PLAN</div>
+    <div class="header-meta">17 yrs · 170 cm · 57 kg<br>Intermediate · Hourglass</div>
+  </div>
+  <div class="header-rule"></div>
+</header>
+
+<nav class="tabs-wrap">
+  <div class="tabs-inner" id="tabs"></div>
+</nav>
+
+<main class="main" id="main"></main>
+
+<script>
+// ─── DATA ──────────────────────────────────────────────────────────────────
+const MUSCLE_ICONS = {
+  glutes:    { icon: '🍑', color: '#9b72e8', label: 'Glutes' },
+  shoulders: { icon: '💪', color: '#9b72e8', label: 'Shoulders' },
+  arms:      { icon: '💪', color: '#e07840', label: 'Arms' },
+  back:      { icon: '🔰', color: '#38bcd4', label: 'Back' },
+  legs:      { icon: '🦵', color: '#48c878', label: 'Legs' },
+  chest:     { icon: '🫀', color: '#e05050', label: 'Chest' },
+  core:      { icon: '⚡', color: '#c8c030', label: 'Core' },
+};
+
+const EX_MUSCLE = {
+  'Barbell Hip Thrust':        'glutes',
+  'Romanian Deadlift':         'glutes',
+  'Leg Press':                 'legs',
+  'Leg Curl':                  'legs',
+  'Cable Glute Kickback':      'glutes',
+  'Dumbbell Lateral Raise':    'shoulders',
+  'Cable Lateral Raise':       'shoulders',
+  'Dumbbell Shoulder Press':   'shoulders',
+  'Face Pulls':                'shoulders',
+  'Dumbbell Bicep Curl':       'arms',
+  'Hammer Curl':               'arms',
+  'Tricep Pushdown':           'arms',
+  'Overhead Tricep Extension': 'arms',
+  'Bulgarian Split Squat':     'legs',
+  'Walking Lunges':            'legs',
+  'Leg Extension':             'legs',
+  'Seated Hip Abductor':       'legs',
+  'Single-leg Glute Bridge':   'glutes',
+  'Lat Pulldown':              'back',
+  'Pec Deck':                  'chest',
+  'Incline Dumbbell Curl':     'arms',
+  'Plank':                     'core',
+  'Dead Bugs':                 'core',
+  'Pallof Press':              'core',
+  'Bird Dog':                  'core',
+};
+
+// YouTube video IDs → img.youtube.com/vi/ID/hqdefault.jpg
+// Values starting with "http" are used as direct image URLs.
+const THUMB = {
+  // Confirmed YouTube video IDs
+  'Barbell Hip Thrust':        'lAnqN0J_p5A',
+  'Leg Curl':                  '3BWiLFc8Dbg',
+  'Cable Glute Kickback':      'm2ShOWIzRhc',
+  'Cable Lateral Raise':       'ufrFCjERMDc',
+  'Dumbbell Shoulder Press':   'FRxZ6wr5bpA',
+  'Face Pulls':                'VdnHXklRQW8',
+  'Tricep Pushdown':           '_w-HpW70nSQ',
+  'Overhead Tricep Extension': 'NRENeEgaIgA',
+  'Bulgarian Split Squat':     'uqI3GVwfToU',
+  'Walking Lunges':            'uRSsOoZG9z8',
+  'Leg Extension':             '0fl1RRgJ83I',
+  'Seated Hip Abductor':       '7pbZA7ncuq8',
+  'Single-leg Glute Bridge':   'XFPV1B7vH-I',
+  'Incline Dumbbell Curl':     'hChjZQhX1Ls',
+  'Plank':                     'TvxNkmjdhMM',
+  'Dead Bugs':                 '4XLEnwUr1d8',
+  // Wikimedia Commons photos
+  'Romanian Deadlift': 'https://upload.wikimedia.org/wikipedia/commons/thumb/e/e8/Romanian-deadlift-1.png/500px-Romanian-deadlift-1.png',
+  'Leg Press':         'https://upload.wikimedia.org/wikipedia/commons/thumb/6/6b/Young_man_using_a_leg_press_machine_at_the_gym.jpg/500px-Young_man_using_a_leg_press_machine_at_the_gym.jpg',
+  'Lat Pulldown':      'https://upload.wikimedia.org/wikipedia/commons/thumb/2/2a/Diverging_Lat_Pulldown_Machine.jpg/500px-Diverging_Lat_Pulldown_Machine.jpg',
+  'Pec Deck':          'https://upload.wikimedia.org/wikipedia/commons/thumb/b/bb/Cable-crossover-1.png/500px-Cable-crossover-1.png',
+  'Bird Dog':          'wiFa3YmIFKg',
+  // Thumbnails to be added: Dumbbell Lateral Raise, Dumbbell Bicep Curl, Hammer Curl, Pallof Press
+};
+
+function thumb(name) {
+  const val = THUMB[name];
+  if (!val) return null;
+  if (val.startsWith('http')) return val;
+  return `https://img.youtube.com/vi/${val}/hqdefault.jpg`;
+}
+
+const DAYS = [
+  {
+    id: 'mon', short: 'D1', name: 'GLUTES',
+    focus: 'Glutes · Hamstrings',
+    type: 'strength', dur: '~55 min',
+    warmup: 'Kneeling hip flexor stretch 30 sec each side (flattens lower back before loading) · Hip circles ×20 · 10 bodyweight glute bridges with pelvic tilt · Band walks ×15 · 2 warm-up sets on hip thrust at 40% and 60%',
+    sections: [
+      { label: 'Main', exercises: [
+        { name:'Barbell Hip Thrust', sets:4, reps:'12', rest:'90 sec', kg:'30–50 kg', lbs:'66–110 lbs', priority:true,
+          note:'Back on bench at shoulder-blade level. Drive through heels, hard glute squeeze at the top. Full hip extension — your body forms a straight line. <strong>This is the #1 exercise for glute shape.</strong>',
+          guide:'https://www.youtube.com/results?search_query=barbell+hip+thrust+form+women' },
+        { name:'Romanian Deadlift', sets:3, reps:'12', rest:'75 sec', kg:'20–35 kg', lbs:'44–77 lbs',
+          note:'Push hips back until you feel a deep hamstring stretch. Lower back stays neutral — never rounds. Use lighter weight than you think — the goal is to <strong>feel the glutes and hamstrings working</strong>, not to move heavy weight.',
+          guide:'https://www.youtube.com/results?search_query=romanian+deadlift+form+women' },
+      ]},
+      { label: 'Isolation', exercises: [
+        { name:'Leg Press', sets:3, reps:'15', rest:'75 sec', kg:'50–80 kg', lbs:'110–176 lbs',
+          note:'<strong>Place feet high on the platform</strong> — shoulder-width or slightly wider. High placement shifts work to glutes and hamstrings. Full range of motion, stop just before knees lock at the top.',
+          guide:'https://www.youtube.com/results?search_query=leg+press+high+foot+placement+glutes' },
+        { name:'Leg Curl', sets:3, reps:'15', rest:'60 sec', kg:'20–35 kg', lbs:'44–77 lbs',
+          note:'<strong>3-second lowering on every rep.</strong> The hamstring is under most tension during the eccentric (lowering) phase. The lower glute-hamstring junction defines the shape of the back of the leg.',
+          guide:'https://www.youtube.com/results?search_query=leg+curl+machine+form' },
+        { name:'Cable Glute Kickback', sets:3, reps:'15', rest:'60 sec', kg:'8–15 kg', lbs:'18–33 lbs',
+          note:'Ankle strap on low cable. Lean forward slightly, kick straight back. Do both sides. Slow and controlled — squeeze at the top and hold 1 second. Weight is not the goal — <strong>the muscle contraction is.</strong>',
+          guide:'https://www.youtube.com/results?search_query=cable+glute+kickback+proper+form' },
+      ]},
+    ]
+  },
+  {
+    id: 'tue', short: 'D2', name: 'SHOULDERS',
+    focus: 'Shoulders · Arms',
+    type: 'strength', dur: '~55 min',
+    warmup: 'Arm circles ×20 · Band pull-aparts ×15 · 2 light sets shoulder press at 40% working weight',
+    sections: [
+      { label: 'Shoulders — the top of the hourglass', exercises: [
+        { name:'Dumbbell Lateral Raise', sets:4, reps:'15', rest:'60 sec', kg:'5–8 kg', lbs:'11–18 lbs', priority:true,
+          note:'<strong>This is the most important exercise for the hourglass figure.</strong> Slow up (2 seconds), slow down (3 seconds). No swinging. Lead with your elbows, not your hands. Slight forward lean (10°) targets the side delt more precisely.',
+          guide:'https://www.youtube.com/results?search_query=dumbbell+lateral+raise+proper+form' },
+        { name:'Cable Lateral Raise', sets:3, reps:'15', rest:'60 sec', kg:'4–7 kg', lbs:'9–15 lbs',
+          note:'Single low cable handle. The cable keeps constant tension throughout — it feels different from dumbbells. Second side delt stimulus today.',
+          guide:'https://www.youtube.com/results?search_query=cable+lateral+raise+form' },
+        { name:'Dumbbell Shoulder Press', sets:3, reps:'12', rest:'75 sec', kg:'8–14 kg', lbs:'18–31 lbs',
+          note:'Sit on upright bench. Press overhead with a slightly wider grip than barbell — this hits more side delt. Full extension at the top.',
+          guide:'https://www.youtube.com/results?search_query=seated+dumbbell+shoulder+press+form' },
+        { name:'Face Pulls', sets:3, reps:'15', rest:'60 sec', kg:'10–18 kg', lbs:'22–40 lbs',
+          note:'Cable rope, pulley at face height. Pull rope to forehead with elbows flaring wide. Adds roundness to the back of the shoulder and protects the joint. <strong>Never skip this.</strong>',
+          guide:'https://www.youtube.com/results?search_query=face+pulls+cable+form' },
+      ]},
+      { label: 'Arms', exercises: [
+        { name:'Dumbbell Bicep Curl', sets:3, reps:'12', rest:'60 sec', kg:'6–10 kg', lbs:'13–22 lbs',
+          note:'Full range of motion — start with arms fully extended. Slow lowering (3 seconds). Supinate (rotate palms up) at the top. Bicep peak comes from full extension, not partial reps.',
+          guide:'https://www.youtube.com/results?search_query=dumbbell+bicep+curl+proper+form' },
+        { name:'Hammer Curl', sets:3, reps:'12', rest:'60 sec', kg:'7–10 kg', lbs:'15–22 lbs',
+          note:'Neutral grip (palms facing each other). Hits the brachialis muscle underneath the bicep — <strong>this gives the arm thickness and definition</strong> that makes the arm look "sculpted" rather than flat.',
+          guide:'https://www.youtube.com/results?search_query=hammer+curl+proper+form' },
+        { name:'Tricep Pushdown', sets:3, reps:'12', rest:'60 sec', kg:'12–20 kg', lbs:'26–44 lbs',
+          note:'High cable pulley. Elbows fixed at sides — they do not move. Squeeze at the bottom. The tricep is 2/3 of the upper arm — defined triceps make arms look lean and long.',
+          guide:'https://www.youtube.com/results?search_query=tricep+pushdown+proper+form' },
+        { name:'Overhead Tricep Extension', sets:3, reps:'12', rest:'60 sec', kg:'10–16 kg', lbs:'22–35 lbs',
+          note:'Cable rope overhead, or dumbbell held with both hands. Elbows close to head throughout. The overhead position <strong>stretches the long head of the tricep</strong> — the part that adds the most visible definition.',
+          guide:'https://www.youtube.com/results?search_query=overhead+tricep+extension+form' },
+      ]},
+    ]
+  },
+  {
+    id: 'wed', short: 'D3', name: 'RECOVERY',
+    focus: 'Active Rest',
+    type: 'recovery', dur: '~45 min',
+    recovery: true,
+    activities: [
+      { name:'Walk or Easy Bike', dur:'30–40 min', zone:'Zone 1 · fully conversational pace',
+        desc:'Comfortable, easy movement. This flushes metabolic waste from muscles and reduces soreness before the next training day. If you are breathing hard at all, slow down.' },
+      { name:'Foam Rolling', dur:'10–15 min', zone:null,
+        desc:'Focus on hip flexors, quads, glutes, and upper back. 45 seconds per area — slow and deliberate. Rolling the hip flexors is especially important for Hohlkreuz.' },
+      { name:'Hohlkreuz Stretching', dur:'10 min', zone:null,
+        desc:'Kneeling hip flexor stretch (Couch Stretch) 60 sec each side — tight hip flexors pull the pelvis forward and create the arch in the lower back. Thomas stretch 60 sec each side. Cat-Cow ×15 — focus on posterior pelvic tilt (tucking the tailbone). Child\'s Pose 60 sec. These exercises directly target the root cause of Hohlkreuz.' },
+      { name:'Mobility Work', dur:'5 min', zone:null,
+        desc:'Hip circles, pigeon pose, chest opener, shoulder CARs. Keep everything moving and healthy.' },
+    ]
+  },
+  {
+    id: 'thu', short: 'D4', name: 'LEGS',
+    focus: 'Legs · Outer Hips',
+    type: 'strength', dur: '~55 min',
+    warmup: 'Kneeling hip flexor stretch 30 sec each side · Leg swings ×20 · Cat-Cow ×10 (posterior pelvic tilt at each rep) · 10 bodyweight squats · 10 reverse lunges · 2 warm-up sets Bulgarian split squat at 40% and 60%',
+    sections: [
+      { label: 'Main', exercises: [
+        { name:'Bulgarian Split Squat', sets:3, reps:'12', rest:'90 sec', kg:'8–14 kg', lbs:'18–31 lbs/hand', priority:true,
+          note:'Rear foot on bench, front foot far forward. Lower until back knee nearly touches the floor. <strong>Best single-leg exercise for glute and leg shape.</strong> Keep torso slightly forward (not upright) to load the glute more.',
+          guide:'https://www.youtube.com/results?search_query=bulgarian+split+squat+form+women' },
+        { name:'Walking Lunges', sets:3, reps:'12', rest:'75 sec', kg:'8–12 kg', lbs:'18–26 lbs/hand',
+          note:'Step forward and lower the back knee toward the floor. Push through the front heel to step forward. Keep torso tall. Do 12 reps each leg (24 total steps).',
+          guide:'https://www.youtube.com/results?search_query=dumbbell+walking+lunges+form' },
+      ]},
+      { label: 'Isolation — hips for the hourglass', exercises: [
+        { name:'Leg Extension', sets:3, reps:'15', rest:'60 sec', kg:'20–35 kg', lbs:'44–77 lbs',
+          note:'Extend fully and hold 1 second at the top. Lower slowly (3 seconds). This shapes the quad without adding bulk — the isolation movement, not the squat, gives the lean quad definition.',
+          guide:'https://www.youtube.com/results?search_query=leg+extension+machine+form' },
+        { name:'Seated Hip Abductor', sets:4, reps:'15', rest:'60 sec', kg:'30–50 kg', lbs:'66–110 lbs', priority:true,
+          note:'<strong>This exercise widens the hip silhouette — the bottom of the hourglass.</strong> Push knees out against the pads with full range. Lean slightly forward to bias the glutes. Do not rush — slow, controlled.',
+          guide:'https://www.youtube.com/results?search_query=hip+abductor+machine+form' },
+        { name:'Single-leg Glute Bridge', sets:3, reps:'15', rest:'60 sec', kg:'Bodyweight', lbs:'or add plate on hip',
+          note:'Lie on floor, one leg extended, drive through the heel of the planted foot. Squeeze glutes hard at the top for 1 second. Do not let hips drop to one side. Once bodyweight is easy, add a weight plate on the hip.',
+          guide:'https://www.youtube.com/results?search_query=single+leg+glute+bridge+form' },
+      ]},
+    ]
+  },
+  {
+    id: 'fri', short: 'D5', name: 'UPPER',
+    focus: 'Upper Body · Core',
+    type: 'strength', dur: '~60 min',
+    warmup: 'Arm circles ×20 · Light cable fly ×15 · Shoulder rotations ×15 · 1 light set lat pulldown',
+    sections: [
+      { label: 'Upper Body', exercises: [
+        { name:'Cable Lateral Raise', sets:4, reps:'15', rest:'60 sec', kg:'4–7 kg', lbs:'9–15 lbs', priority:true,
+          note:'<strong>Third lateral delt session this week.</strong> This is the most important exercise for the hourglass silhouette — shoulders wider than the waist. Never skip it, never rush it.',
+          guide:'https://www.youtube.com/results?search_query=cable+lateral+raise+form' },
+        { name:'Lat Pulldown', sets:3, reps:'12', rest:'75 sec', kg:'30–45 kg', lbs:'66–99 lbs',
+          note:'Wide grip. Full stretch at the top, pull to upper chest. Lead with elbows, not hands. <strong>Back width adds to the V-shape above the waist</strong> — use moderate weight only, not heavy.',
+          guide:'https://www.youtube.com/results?search_query=lat+pulldown+proper+form' },
+        { name:'Pec Deck', sets:3, reps:'12', rest:'75 sec', kg:'20–30 kg', lbs:'44–66 lbs/side',
+          note:'Sit in machine. Bring pads together slowly — feel the chest squeeze at the center. 2-second pause at full contraction. Let arms open fully for the stretch. Adds chest definition without bulk.',
+          guide:'https://www.youtube.com/results?search_query=pec+deck+fly+machine+form' },
+        { name:'Face Pulls', sets:3, reps:'15', rest:'60 sec', kg:'10–18 kg', lbs:'22–40 lbs',
+          note:'Second face pull session this week. Rear delt and posture. Elbows wide. This is what keeps the shoulders healthy and adds roundness to the back of the shoulder.',
+          guide:'https://www.youtube.com/results?search_query=face+pulls+cable+form' },
+        { name:'Incline Dumbbell Curl', sets:3, reps:'12', rest:'60 sec', kg:'6–10 kg', lbs:'13–22 lbs',
+          note:'Incline bench at 60 degrees. Arms hang behind the body at full stretch. This gives the bicep a <strong>longer range of motion than standing curls</strong> — best exercise for bicep peak and shape.',
+          guide:'https://www.youtube.com/results?search_query=incline+dumbbell+curl+form' },
+        { name:'Tricep Pushdown', sets:3, reps:'12', rest:'60 sec', kg:'12–20 kg', lbs:'26–44 lbs',
+          note:'Second tricep session this week. Keep elbows pinned. Full extension at the bottom, squeeze.',
+          guide:'https://www.youtube.com/results?search_query=tricep+pushdown+proper+form' },
+      ]},
+      { label: 'Core Finisher', finisher: true, finisherLabel: 'Core Finisher · 3 rounds · 90 sec between rounds', exercises: [
+        { name:'Plank', sets:3, reps:'40 sec', rest:'90 sec', kg:'Bodyweight', lbs:'—',
+          note:'Hips level — not sagging, not raised. Actively tuck the pelvis (posterior pelvic tilt) while holding — this is the exact opposite movement of Hohlkreuz. Squeeze glutes and abs simultaneously.',
+          guide:'https://www.youtube.com/results?search_query=plank+posterior+pelvic+tilt+form' },
+        { name:'Dead Bugs', sets:3, reps:'10', rest:'90 sec', kg:'Bodyweight', lbs:'—',
+          note:'<strong>Most important exercise for Hohlkreuz.</strong> Lie on back, press lower back flat to the floor — that is the posterior pelvic tilt position. Extend opposite arm and leg slowly while maintaining the lower back contact. This trains the core to hold the pelvis in neutral position.',
+          guide:'https://www.youtube.com/results?search_query=dead+bugs+lower+back+flat+form' },
+        { name:'Bird Dog', sets:3, reps:'10', rest:'90 sec', kg:'Bodyweight', lbs:'—',
+          note:'On hands and knees, neutral spine. Extend opposite arm and leg while keeping the lower back completely still — do not let the hip drop or the back arch. <strong>Directly corrects the muscle imbalance that causes Hohlkreuz</strong> — trains glutes and core to stabilize the pelvis.',
+          guide:'https://www.youtube.com/results?search_query=bird+dog+exercise+lower+back+form' },
+        { name:'Pallof Press', sets:3, reps:'10', rest:'90 sec', kg:'8–14 kg', lbs:'18–31 lbs',
+          note:'Stand sideways to cable machine, single handle at chest height. Push handle straight out from chest — <strong>resist the rotation</strong>. The core works hardest when you resist, not when you twist. Hold for 1 second extended. Do both sides.',
+          guide:'https://www.youtube.com/results?search_query=pallof+press+anti+rotation+form' },
+      ]},
+    ]
+  },
+  {
+    id: 'sat', short: 'D6', name: 'REST',
+    focus: 'Full Rest',
+    type: 'rest', dur: null,
+    rest: true
+  },
+  {
+    id: 'sun', short: 'D7', name: 'REST',
+    focus: 'Full Rest',
+    type: 'rest', dur: null,
+    rest: true
+  }
+];
+
+// ─── RENDER ─────────────────────────────────────────────────────────────────
+
+function exCard(ex, dayId) {
+  const imgUrl = thumb(ex.name);
+  const muscle = EX_MUSCLE[ex.name] || 'glutes';
+  const mi = MUSCLE_ICONS[muscle] || MUSCLE_ICONS.glutes;
+  const imgTag = imgUrl
+    ? `<img src="${imgUrl}" alt="${ex.name}" loading="lazy" onerror="this.style.display='none'">`
+    : '';
+
+  return `
+    <div class="ex-card${ex.priority ? ' priority' : ''}" data-ex="${ex.name}" data-day="${dayId}" onclick="toggle(this)">
+      <div class="ex-row">
+        <div class="ex-check" onclick="event.stopPropagation();toggleDone(this)">
+          <div class="ex-check-btn">✓</div>
+        </div>
+        <div class="ex-thumb">
+          <div class="ex-ph" style="background:${mi.color}18">
+            <div class="ex-ph-icon">${mi.icon}</div>
+            <div class="ex-ph-lbl">${mi.label.toUpperCase()}</div>
+          </div>
+          ${imgTag}
+        </div>
+        <div class="ex-info">
+          <div class="ex-name">${ex.name}${ex.priority ? '<span class="ex-priority-dot"></span>' : ''}</div>
+          <div class="ex-my-wt-row"><span class="ex-my-wt"></span><span class="ex-my-wt-unit">kg</span></div>
+          <div class="ex-mini-stats">
+            <span class="ms">${ex.sets}×${ex.reps}</span>
+            <span class="ms violet ex-plan-wt">${ex.kg}</span>
+            <span class="ms">${ex.rest} between sets</span>
+          </div>
+        </div>
+        <div class="ex-right">
+          ${ex.guide ? `<a href="${ex.guide}" target="_blank" onclick="event.stopPropagation()" class="guide-btn">SEE HOW ↗</a>` : ''}
+          <div class="ex-arrow">▾</div>
+        </div>
+      </div>
+      <div class="ex-detail">
+        <div class="wt-section" data-ex="${ex.name}" data-plan="${ex.kg}">
+          <div class="wt-header">
+            <span class="wt-lbl">My Weight</span>
+            <span class="wt-plan">Plan: ${ex.kg}</span>
+          </div>
+          <div class="wt-drum-outer" onclick="event.stopPropagation()">
+            <div class="drum-fade-top"></div>
+            <div class="drum-center-band"></div>
+            <div class="drum-fade-bot"></div>
+          </div>
+          <div class="wt-history"></div>
+        </div>
+        <div class="ex-note-wrap">
+          <div class="ex-note">${ex.note}</div>
+          ${ex.rpe ? `<div class="rpe-note">${ex.rpe} on last set</div>` : ''}
+          ${ex.guide ? `<a href="${ex.guide}" target="_blank" onclick="event.stopPropagation()" class="guide-btn" style="margin-top:10px;display:inline-flex">SEE HOW ↗</a>` : ''}
+        </div>
+      </div>
+    </div>`;
+}
+
+function progCard() {
+  return `
+    <div class="prog-card">
+      <div class="prog-title">PROGRESSION RULES</div>
+      <div class="prog-row"><div class="prog-dot" style="background:var(--green)"></div><div class="prog-text"><strong>Add 1–2.5 kg</strong> — when all sets are done and the last set felt like 3+ reps left. Go up slowly — form is more important than weight.</div></div>
+      <div class="prog-row"><div class="prog-dot" style="background:var(--violet)"></div><div class="prog-text"><strong>Stay same weight</strong> — when all reps were completed but the last set was at the limit.</div></div>
+      <div class="prog-row"><div class="prog-dot" style="background:var(--red)"></div><div class="prog-text"><strong>Drop 5%</strong> — if a rep failed or form broke down mid-set. Form always comes first.</div></div>
+      <div class="prog-row"><div class="prog-dot" style="background:var(--text-3)"></div><div class="prog-text"><strong>Deload every 4–6 weeks</strong> — same exercises at 60–65% of normal weight. This is when joints and tendons catch up to the muscles.</div></div>
+    </div>`;
+}
+
+function buildPanel(day, isFirst) {
+  const el = document.createElement('div');
+  el.className = 'day-panel' + (isFirst ? ' active' : '');
+  el.dataset.id = day.id;
+
+  const typeLabels = { strength:'Strength', recovery:'Active Recovery', rest:'Rest' };
+  let html = `
+    <div class="day-head">
+      <div class="day-title">${day.name}</div>
+      <div class="day-meta">
+        <span class="pill pill-${day.type}">${typeLabels[day.type]}</span>
+        <span class="day-focus">${day.focus}</span>
+        ${day.dur ? `<span class="day-dur">${day.dur}</span>` : ''}
+        ${day.sections ? `<button class="day-reset" onclick="resetDay('${day.id}')">Reset workout</button>` : ''}
+      </div>
+      <div class="today-row">
+        <button class="today-btn" data-day="${day.id}" onclick="setToday('${day.id}')">Train this today</button>
+        ${!day.sections ? `<button class="complete-btn" onclick="advanceToNextDay('${day.id}')">Complete day \u2192</button>` : ''}
+      </div>
+    </div>`;
+
+  if (day.rest) {
+    html += `
+      <div class="rest-block">
+        <div class="rest-word">REST</div>
+        <div class="rest-sub">This is when muscles repair and grow.</div>
+        <div class="rest-list">
+          <div class="rest-item">7–9 hours sleep</div>
+          <div class="rest-item">120–140 g protein today</div>
+          <div class="rest-item">2–3 litres water</div>
+          <div class="rest-item">Optional 20-min walk if stiff — no elevated HR</div>
+        </div>
+      </div>`;
+
+  } else if (day.recovery) {
+    html += `
+      <div class="rec-card" style="border-left:3px solid var(--green)">
+        <div class="rec-head"><div class="rec-name" style="color:var(--green)">Today's Rule</div></div>
+        <div class="rec-desc">Keep intensity low today. Move gently to flush metabolic waste from muscles and reduce soreness before the next training day.</div>
+      </div>`;
+    day.activities.forEach(a => {
+      html += `
+        <div class="rec-card">
+          <div class="rec-head"><div class="rec-name">${a.name}</div><div class="rec-dur">${a.dur}</div></div>
+          ${a.zone ? `<div class="rec-zone">${a.zone}</div>` : ''}
+          <div class="rec-desc">${a.desc}</div>
+        </div>`;
+    });
+
+  } else {
+    if (day.warmup) {
+      html += `<div class="warmup"><div class="warmup-lbl">Warm-up · 5 min</div><div class="warmup-text">${day.warmup}</div></div>`;
+    }
+    day.sections.forEach(sec => {
+      if (sec.finisher) {
+        html += `<div class="finisher-div"><div class="finisher-line"></div><div class="finisher-lbl">${sec.finisherLabel || 'Finisher'}</div><div class="finisher-line"></div></div>`;
+      } else {
+        html += `<div class="sec-label">${sec.label}</div>`;
+      }
+      html += `<div class="ex-list">`;
+      sec.exercises.forEach(ex => { html += exCard(ex, day.id); });
+      html += `</div>`;
+    });
+    html += progCard();
+  }
+
+  el.innerHTML = html;
+  return el;
+}
+
+function toggle(card) {
+  card.classList.toggle('open');
+  if (card.classList.contains('open')) {
+    card.querySelectorAll('.wt-section').forEach(section => {
+      buildDrum(section, section.dataset.ex);
+    });
+  }
+}
+
+// ── DONE TRACKING ──────────────────────────────────────────────────────────
+
+function toggleDone(btn) {
+  const card = btn.closest('.ex-card');
+  const exName = card.dataset.ex;
+  const dayId  = card.dataset.day;
+  const isDone = card.classList.toggle('done');
+  const key = `done:${dayId}:${exName}`;
+  isDone ? localStorage.setItem(key, '1') : localStorage.removeItem(key);
+  if (isDone) {
+    const wt = getWt(exName);
+    if (wt !== null) {
+      logWtHistory(exName, wt);
+      const section = card.querySelector('.wt-section');
+      if (section) section.querySelector('.wt-history').innerHTML = historyHtml(exName);
+    }
+    if (localStorage.getItem('today') === dayId && allExercisesDone(dayId)) {
+      advanceToNextDay(dayId);
+    }
+  }
+}
+
+function allExercisesDone(dayId) {
+  const cards = document.querySelectorAll(`.day-panel[data-id="${dayId}"] .ex-card`);
+  return cards.length > 0 && [...cards].every(c => c.classList.contains('done'));
+}
+
+function showToast(msg) {
+  let t = document.getElementById('toast');
+  if (!t) { t = document.createElement('div'); t.id = 'toast'; document.body.appendChild(t); }
+  t.textContent = msg;
+  t.classList.add('toast-show');
+  setTimeout(() => t.classList.remove('toast-show'), 2200);
+}
+
+function advanceToNextDay(currentDayId) {
+  const idx = DAYS.findIndex(d => d.id === currentDayId);
+  const next = DAYS[(idx + 1) % DAYS.length];
+  showToast('Day complete \u2713  \u2192  ' + next.short + ' \u00b7 ' + next.name);
+  setTimeout(() => setToday(next.id), 2000);
+}
+
+function loadDone(dayId) {
+  document.querySelectorAll(`.day-panel[data-id="${dayId}"] .ex-card`).forEach(card => {
+    const key = `done:${dayId}:${card.dataset.ex}`;
+    card.classList.toggle('done', !!localStorage.getItem(key));
+  });
+}
+
+function resetDay(dayId) {
+  document.querySelectorAll(`.day-panel[data-id="${dayId}"] .ex-card`).forEach(card => {
+    card.classList.remove('done');
+    localStorage.removeItem(`done:${dayId}:${card.dataset.ex}`);
+  });
+}
+
+// ── TODAY TRACKING ──────────────────────────────────────────────────────────
+
+function updateTodayMarkers(dayId) {
+  document.querySelectorAll('.tab').forEach(t => {
+    const isToday = t.dataset.id === dayId;
+    const dayEl = t.querySelector('.tab-day');
+    if (isToday) {
+      if (!dayEl.dataset.orig) dayEl.dataset.orig = dayEl.textContent;
+      dayEl.textContent = 'TODAY';
+    } else if (dayEl.dataset.orig) {
+      dayEl.textContent = dayEl.dataset.orig;
+    }
+    t.classList.toggle('today', isToday);
+  });
+  document.querySelectorAll('.today-btn').forEach(btn => {
+    const isThis = btn.dataset.day === dayId;
+    btn.textContent = isThis ? 'Training today \u2713' : 'Train this today';
+    btn.classList.toggle('is-today', isThis);
+  });
+}
+
+function setToday(dayId) {
+  localStorage.setItem('today', dayId);
+  resetDay(dayId);
+  updateTodayMarkers(dayId);
+  setDay(dayId);
+}
+
+// ── WEIGHT TRACKING ────────────────────────────────────────────────────────
+
+function getWt(exName) {
+  const v = localStorage.getItem('wt:' + exName);
+  return v !== null ? parseFloat(v) : null;
+}
+
+function saveWt(exName, weight) {
+  localStorage.setItem('wt:' + exName, weight);
+}
+
+function getWtHistory(exName) {
+  try { return JSON.parse(localStorage.getItem('wth:' + exName) || '[]'); }
+  catch { return []; }
+}
+
+function logWtHistory(exName, weight) {
+  const today = new Date().toISOString().slice(0, 10);
+  const hist = getWtHistory(exName);
+  if (hist.length > 0 && hist[hist.length - 1].date === today) {
+    hist[hist.length - 1].weight = weight;
+  } else {
+    hist.push({ date: today, weight });
+  }
+  localStorage.setItem('wth:' + exName, JSON.stringify(hist));
+}
+
+function fmtDate(iso) {
+  const d = new Date(iso + 'T12:00:00');
+  return d.toLocaleDateString('en', { month: 'short', day: 'numeric' });
+}
+
+function wtSuggestion(exName) {
+  const hist = getWtHistory(exName);
+  if (hist.length < 2) return null;
+  const last = hist[hist.length - 1];
+  const prev = hist[hist.length - 2];
+  if (last.weight === prev.weight) return Math.round((last.weight + 2.5) * 10) / 10;
+  return null;
+}
+
+function historyHtml(exName) {
+  const hist = getWtHistory(exName);
+  if (hist.length === 0) return '<div class="wt-empty">No sessions yet — logged when you tick \u2713 done</div>';
+  const last = hist[hist.length - 1];
+  const suggest = wtSuggestion(exName);
+  const suggestHtml = suggest ? `<span class="wt-suggest">\u2191 Try ${suggest} kg</span>` : '';
+  return `<div class="wt-last">
+    <span class="wt-last-lbl">Last</span>
+    <span class="wt-last-val">${fmtDate(last.date)} \u00b7 ${last.weight} kg</span>
+    ${suggestHtml}
+  </div>`;
+}
+
+function setCardWt(card, wt) {
+  card.classList.add('has-wt');
+  const wtEl = card.querySelector('.ex-my-wt');
+  if (wtEl) wtEl.textContent = wt;
+}
+
+const DRUM_STEP = 0.5, DRUM_MAX = 200, DRUM_H = 48;
+const DRUM_CNT  = Math.round(DRUM_MAX / DRUM_STEP) + 1; // 401
+
+function buildDrum(section, exName) {
+  const outer = section.querySelector('.wt-drum-outer');
+  if (!outer || outer.querySelector('.wt-drum')) return;
+
+  const drum = document.createElement('div');
+  drum.className = 'wt-drum';
+
+  const ts = document.createElement('div');
+  ts.style.cssText = 'height:48px;flex-shrink:0';
+  drum.appendChild(ts);
+
+  for (let i = 0; i < DRUM_CNT; i++) {
+    const wt = i * DRUM_STEP;
+    const div = document.createElement('div');
+    div.className = 'drum-item';
+    div.textContent = (wt % 1 === 0 ? wt.toFixed(0) : wt.toFixed(1)) + ' kg';
+    drum.appendChild(div);
+  }
+
+  const bs = document.createElement('div');
+  bs.style.cssText = 'height:48px;flex-shrink:0';
+  drum.appendChild(bs);
+
+  outer.appendChild(drum);
+
+  const saved = getWt(exName);
+  const startWt = saved !== null ? saved : (() => {
+    const m = (section.dataset.plan || '').match(/(\d+\.?\d*)/);
+    return m ? parseFloat(m[1]) : 0;
+  })();
+  const startIdx = Math.max(0, Math.min(Math.round(startWt / DRUM_STEP), DRUM_CNT - 1));
+
+  drum._selIdx = -1;
+  requestAnimationFrame(() => {
+    drum.style.scrollBehavior = 'auto';
+    drum.scrollTop = startIdx * DRUM_H;
+    _drumSelect(drum, startIdx);
+    requestAnimationFrame(() => { drum.style.scrollBehavior = ''; });
+  });
+
+  if (saved !== null) {
+    section.querySelector('.wt-history').innerHTML = historyHtml(exName);
+    setCardWt(section.closest('.ex-card'), saved);
+  }
+
+  let scrollTimer;
+  drum.addEventListener('scroll', () => {
+    const idx = Math.round(drum.scrollTop / DRUM_H);
+    _drumSelect(drum, idx);
+    clearTimeout(scrollTimer);
+    scrollTimer = setTimeout(() => {
+      const wt = idx * DRUM_STEP;
+      saveWt(exName, wt);
+      section.querySelector('.wt-history').innerHTML = historyHtml(exName);
+      setCardWt(section.closest('.ex-card'), wt);
+    }, 150);
+  }, { passive: true });
+}
+
+function _drumSelect(drum, idx) {
+  if (drum._selIdx === idx) return;
+  if (drum._selIdx >= 0) drum.children[drum._selIdx + 1].classList.remove('selected');
+  if (idx >= 0 && idx < DRUM_CNT) drum.children[idx + 1].classList.add('selected');
+  drum._selIdx = idx;
+}
+
+function initWeights(dayId) { /* drums built lazily in toggle() */ }
+
+// ── PROGRESS PAGE ──────────────────────────────────────────────────────────
+
+function sparklineSVG(hist) {
+  if (hist.length < 2) return '';
+  const W = 300, H = 48;
+  const weights = hist.map(h => h.weight);
+  const min = Math.min(...weights);
+  const max = Math.max(...weights);
+  const range = max - min || 1;
+  const px = 4, py = 6;
+  const cx = (i) => px + (i / (hist.length - 1)) * (W - px * 2);
+  const cy = (w) => py + (1 - (w - min) / range) * (H - py * 2);
+  let d = `M ${cx(0).toFixed(1)},${cy(weights[0]).toFixed(1)}`;
+  for (let i = 1; i < hist.length; i++) {
+    const x1 = cx(i-1), y1 = cy(weights[i-1]);
+    const x2 = cx(i),   y2 = cy(weights[i]);
+    const mx = (x1 + x2) / 2;
+    d += ` C ${mx.toFixed(1)},${y1.toFixed(1)} ${mx.toFixed(1)},${y2.toFixed(1)} ${x2.toFixed(1)},${y2.toFixed(1)}`;
+  }
+  const area = d + ` L ${cx(hist.length-1).toFixed(1)},${H} L ${cx(0).toFixed(1)},${H} Z`;
+  const dots = hist.map((h, i) =>
+    `<circle cx="${cx(i).toFixed(1)}" cy="${cy(h.weight).toFixed(1)}" r="${hist.length <= 10 ? 3 : 0}" fill="var(--green)"/>`
+  ).join('');
+  return `<svg class="spark-svg" viewBox="0 0 ${W} ${H}" preserveAspectRatio="none">
+    <path d="${area}" fill="rgba(72,200,120,0.10)"/>
+    <path d="${d}" fill="none" stroke="var(--green)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" opacity="0.85"/>
+    ${dots}
+  </svg>`;
+}
+
+function fullChartSVG(hist) {
+  if (hist.length < 2) return '';
+  const W = 280, H = 160;
+  const pL = 42, pR = 10, pT = 14, pB = 26;
+  const cW = W - pL - pR, cH = H - pT - pB;
+  const weights = hist.map(h => h.weight);
+  const minW = Math.min(...weights), maxW = Math.max(...weights);
+  const step = (maxW - minW) <= 10 ? 2.5 : (maxW - minW) <= 30 ? 5 : 10;
+  const gMin = Math.floor(minW / step) * step;
+  const gMax = Math.ceil(maxW / step) * step;
+  const gRange = gMax - gMin || step;
+  const cx = i => pL + (i / (hist.length - 1)) * cW;
+  const cy = w => pT + (1 - (w - gMin) / gRange) * cH;
+  let path = `M ${cx(0).toFixed(1)},${cy(weights[0]).toFixed(1)}`;
+  for (let i = 1; i < hist.length; i++) {
+    const [x1,y1,x2,y2] = [cx(i-1),cy(weights[i-1]),cx(i),cy(weights[i])];
+    const mx = (x1+x2)/2;
+    path += ` C ${mx.toFixed(1)},${y1.toFixed(1)} ${mx.toFixed(1)},${y2.toFixed(1)} ${x2.toFixed(1)},${y2.toFixed(1)}`;
+  }
+  const area = path + ` L ${cx(hist.length-1).toFixed(1)},${pT+cH} L ${cx(0).toFixed(1)},${pT+cH} Z`;
+  let grid = '', yLbls = '';
+  for (let w = gMin; w <= gMax + 0.01; w += step) {
+    const y = cy(w).toFixed(1);
+    grid  += `<line x1="${pL}" y1="${y}" x2="${W-pR}" y2="${y}" stroke="rgba(255,255,255,0.05)" stroke-width="1"/>`;
+    yLbls += `<text x="${pL-5}" y="${(parseFloat(y)+3.5).toFixed(1)}" text-anchor="end" fill="rgba(200,196,190,0.55)" font-size="10" font-family="IBM Plex Mono,monospace">${w}</text>`;
+  }
+  const xIdx = hist.length <= 4 ? hist.map((_,i)=>i) : [0, Math.floor((hist.length-1)/2), hist.length-1];
+  const xLbls = [...new Set(xIdx)].map(i => {
+    const lbl = fmtDate(hist[i].date);
+    const anchor = i === 0 ? 'start' : i === hist.length-1 ? 'end' : 'middle';
+    return `<text x="${cx(i).toFixed(1)}" y="${H-4}" text-anchor="${anchor}" fill="rgba(200,196,190,0.45)" font-size="10" font-family="IBM Plex Mono,monospace">${lbl}</text>`;
+  }).join('');
+  const dots = hist.map((h, i) => {
+    const x = cx(i).toFixed(1), y = cy(h.weight).toFixed(1);
+    const r = i === hist.length-1 ? 4 : 2.5;
+    const fill = i === hist.length-1 ? 'var(--green)' : 'rgba(72,200,120,0.65)';
+    const showLbl = i === 0 || i === hist.length-1 || hist.length <= 5;
+    return `<circle cx="${x}" cy="${y}" r="${r}" fill="${fill}"/>`
+      + (showLbl ? `<text x="${x}" y="${(parseFloat(y)-7).toFixed(1)}" text-anchor="middle" fill="rgba(200,196,190,0.75)" font-size="10" font-family="IBM Plex Mono,monospace">${h.weight}</text>` : '');
+  }).join('');
+  return `<svg class="full-chart-svg" viewBox="0 0 ${W} ${H}">
+    ${grid}
+    <path d="${area}" fill="rgba(72,200,120,0.09)"/>
+    <path d="${path}" fill="none" stroke="var(--green)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+    ${yLbls}${xLbls}${dots}
+  </svg>`;
+}
+
+function combinedChartSVG(exs) {
+  const valid = exs.filter(e => e.hist.length >= 2);
+  if (valid.length === 0) return null;
+  const W = 300, H = 160;
+  const pL = 10, pR = 10, pT = 10, pB = 28;
+  const cW = W - pL - pR, cH = H - pT - pB;
+  const allPcts = valid.flatMap(e => { const f = e.hist[0].weight; return e.hist.map(h => h.weight/f*100); });
+  const minP = Math.floor(Math.min(...allPcts) / 5) * 5;
+  const maxP = Math.ceil(Math.max(...allPcts) / 5) * 5;
+  const pRange = maxP - minP || 10;
+  const pyFn = p => pT + (1 - (p - minP) / pRange) * cH;
+  const COLORS = ['#9b72e8','#38bcd4','#48c878','#f0a030','#e05050','#e07840','#40c0b0','#e0a060'];
+  let grid = '';
+  const step = pRange <= 15 ? 5 : 10;
+  for (let p = minP; p <= maxP; p += step) {
+    const y = pyFn(p).toFixed(1);
+    grid += `<line x1="${pL}" y1="${y}" x2="${W-pR}" y2="${y}" stroke="rgba(255,255,255,0.05)" stroke-width="1"/>`;
+    if (p === 100) grid += `<line x1="${pL}" y1="${y}" x2="${W-pR}" y2="${y}" stroke="rgba(255,255,255,0.15)" stroke-width="1"/>`;
+  }
+  const xLbls = `<text x="${pL}" y="${H-4}" text-anchor="start" fill="rgba(200,196,190,0.4)" font-size="9" font-family="IBM Plex Mono,monospace">start</text>
+    <text x="${W-pR}" y="${H-4}" text-anchor="end" fill="rgba(200,196,190,0.4)" font-size="9" font-family="IBM Plex Mono,monospace">latest</text>`;
+  let lines = '';
+  valid.forEach((ex, ei) => {
+    const color = COLORS[ei % COLORS.length];
+    const base = ex.hist[0].weight;
+    const pts = ex.hist.map((h, i) => ({
+      x: (pL + (i / (ex.hist.length-1)) * cW).toFixed(1),
+      y: pyFn(h.weight / base * 100).toFixed(1)
+    }));
+    let d = `M ${pts[0].x},${pts[0].y}`;
+    for (let i = 1; i < pts.length; i++) {
+      const mx = ((parseFloat(pts[i-1].x)+parseFloat(pts[i].x))/2).toFixed(1);
+      d += ` C ${mx},${pts[i-1].y} ${mx},${pts[i].y} ${pts[i].x},${pts[i].y}`;
+    }
+    const last = pts[pts.length-1];
+    lines += `<path d="${d}" fill="none" stroke="${color}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" opacity="0.85"/>`;
+    lines += `<circle cx="${last.x}" cy="${last.y}" r="3.5" fill="${color}"/>`;
+  });
+  return { svg: `<svg class="combo-svg" viewBox="0 0 ${W} ${H}">${grid}${lines}${xLbls}</svg>`, colors: COLORS };
+}
+
+function weeklyVolumeHTML(tracked) {
+  const vol = {};
+  Object.keys(MUSCLE_ICONS).forEach(m => { vol[m] = 0; });
+  tracked.forEach(ex => {
+    const m = EX_MUSCLE[ex.name]; if (!m) return;
+    const w = ex.hist[ex.hist.length-1].weight;
+    const reps = parseInt(ex.reps) || 12;
+    vol[m] = (vol[m] || 0) + ex.sets * reps * w;
+  });
+  const entries = Object.entries(vol).filter(([,v]) => v > 0).sort((a,b) => b[1]-a[1]);
+  if (entries.length === 0) return '';
+  const maxV = entries[0][1];
+  const rows = entries.map(([m, v]) => {
+    const mi = MUSCLE_ICONS[m];
+    const pct = (v / maxV * 100).toFixed(0);
+    const label = Math.round(v) >= 1000 ? `${(v/1000).toFixed(1)}k` : Math.round(v);
+    return `<div class="vol-row">
+      <div class="vol-label">${mi.label}</div>
+      <div class="vol-bar-wrap"><div class="vol-bar" style="width:${pct}%;background:${mi.color}40;border-right:2px solid ${mi.color}"></div></div>
+      <div class="vol-num">${label}</div>
+    </div>`;
+  }).join('');
+  return `<div class="vol-card"><div class="vol-card-head">Weekly Volume \u00b7 sets \u00d7 reps \u00d7 kg</div>${rows}</div>`;
+}
+
+function deloadBanner(tracked) {
+  const cutoff = new Date(); cutoff.setDate(cutoff.getDate()-42);
+  const cutStr = cutoff.toISOString().slice(0,10);
+  const dates = new Set(tracked.flatMap(e => e.hist.filter(h => h.date >= cutStr).map(h => h.date)));
+  if (dates.size < 20) return '';
+  return `<div class="deload-banner">
+    <div class="deload-title">Deload week due</div>
+    <div class="deload-desc">${dates.size} training days in the last 6 weeks. Drop to 60\u201365% of normal weights this week.</div>
+  </div>`;
+}
+
+function toggleExChart(wrap, exName) {
+  const isExpanded = wrap.classList.toggle('expanded');
+  if (isExpanded) {
+    const fullEl = wrap.querySelector('.spark-full');
+    if (!fullEl.dataset.built) {
+      fullEl.innerHTML = fullChartSVG(getWtHistory(exName));
+      fullEl.dataset.built = '1';
+    }
+  }
+}
+
+function progressCard(ex) {
+  const hist = ex.hist;
+  const cur   = hist[hist.length - 1].weight;
+  const first = hist[0].weight;
+  const delta = Math.round((cur - first) * 10) / 10;
+  const dStr  = delta > 0 ? `+${delta}` : `${delta}`;
+  const dCls  = delta > 0 ? 'up' : delta < 0 ? 'down' : '';
+  const suggest = wtSuggestion(ex.name);
+  const safeName = ex.name.replace(/\\/g,'\\\\').replace(/'/g,"\\'");
+
+  const chart = hist.length >= 2 ? `
+    <div class="spark-wrap" onclick="toggleExChart(this,'${safeName}')">
+      <div class="spark-thumb">${sparklineSVG(hist)}</div>
+      <div class="spark-full"></div>
+      <div class="spark-axis">
+        <span>${fmtDate(hist[0].date)}</span>
+        <span class="spark-hint">tap to expand</span>
+        <span>${fmtDate(hist[hist.length-1].date)}</span>
+      </div>
+    </div>` : '';
+
+  return `
+    <div class="prog-ex-card">
+      <div class="prog-card-head">
+        <div class="prog-name">${ex.name}</div>
+        <div class="prog-day-tag">${ex.dayShort}</div>
+      </div>
+      ${chart}
+      <div class="prog-stats-row">
+        <div class="prog-stat"><div class="prog-stat-val">${cur}</div><div class="prog-stat-lbl">Current kg</div></div>
+        <div class="prog-stat"><div class="prog-stat-val ${dCls}">${dStr}</div><div class="prog-stat-lbl">Progress kg</div></div>
+        <div class="prog-stat"><div class="prog-stat-val">${hist.length}</div><div class="prog-stat-lbl">Sessions</div></div>
+      </div>
+      ${suggest ? `<div class="prog-suggestion">\u2191 Try ${suggest} kg next session</div>` : ''}
+    </div>`;
+}
+
+function buildProgressHTML() {
+  const tracked = [];
+  const seen = new Set();
+  DAYS.forEach(day => {
+    if (!day.sections) return;
+    day.sections.forEach(sec => {
+      sec.exercises.forEach(ex => {
+        if (seen.has(ex.name)) return;
+        const hist = getWtHistory(ex.name);
+        if (hist.length > 0) {
+          seen.add(ex.name);
+          tracked.push({ ...ex, dayShort: day.short, dayName: day.name, dayId: day.id, hist });
+        }
+      });
+    });
+  });
+
+  if (tracked.length === 0) {
+    return `<div class="day-head"><div class="day-title">STATS</div></div>
+      <div class="prog-empty">No progress data yet.<br>Log weights and mark exercises done<br>to see your progress here.</div>`;
+  }
+
+  const totalSessions = tracked.reduce((s, e) => s + e.hist.length, 0);
+  const bestGain = tracked.reduce((b, e) => {
+    const g = e.hist[e.hist.length-1].weight - e.hist[0].weight;
+    return g > b.g ? { g, label: `+${Math.round(g*10)/10}` } : b;
+  }, { g: -Infinity, label: '\u2014' });
+
+  const summary = `
+    <div class="prog-summary">
+      <div class="ps-item"><div class="ps-val">${tracked.length}</div><div class="ps-lbl">Exercises</div></div>
+      <div class="ps-item"><div class="ps-val">${totalSessions}</div><div class="ps-lbl">Sessions</div></div>
+      <div class="ps-item"><div class="ps-val">${bestGain.g > 0 ? bestGain.label : '\u2014'}</div><div class="ps-lbl">Best gain</div></div>
+    </div>`;
+
+  const COLORS = ['#9b72e8','#38bcd4','#48c878','#f0a030','#e05050','#e07840','#40c0b0','#e0a060'];
+  const forCombo = tracked.filter(e => e.hist.length >= 2).slice(0, 8);
+  let comboSection = '';
+  if (forCombo.length >= 2) {
+    const result = combinedChartSVG(forCombo);
+    if (result) {
+      const legend = forCombo.map((ex, i) => {
+        const base = ex.hist[0].weight, cur = ex.hist[ex.hist.length-1].weight;
+        const pct = Math.round((cur/base - 1) * 100);
+        const sign = pct >= 0 ? '+' : '';
+        return `<div class="legend-item"><span class="legend-dot" style="background:${COLORS[i % COLORS.length]}"></span><span class="legend-name">${ex.name} <span style="opacity:.55">${sign}${pct}%</span></span></div>`;
+      }).join('');
+      comboSection = `<div class="combo-card">
+        <div class="combo-card-head">All exercises \u00b7 % of starting weight</div>
+        <div class="combo-svg-wrap">${result.svg}</div>
+        <div class="combo-legend">${legend}</div>
+      </div>`;
+    }
+  }
+
+  const volumeSection = weeklyVolumeHTML(tracked);
+  const deload = deloadBanner(tracked);
+
+  let cards = '';
+  DAYS.forEach(day => {
+    if (!day.sections) return;
+    const exs = tracked.filter(e => e.dayId === day.id);
+    if (exs.length === 0) return;
+    cards += `<div class="sec-label">${day.short} \u00b7 ${day.name}</div>`;
+    exs.forEach(ex => { cards += progressCard(ex); });
+  });
+
+  return `<div class="day-head"><div class="day-title">STATS</div></div>
+    ${deload}${summary}${comboSection}${cards}${volumeSection}`;
+}
+
+function showProgress() {
+  document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+  document.querySelectorAll('.day-panel').forEach(p => p.classList.remove('active'));
+  document.getElementById('tab-progress').classList.add('active');
+  const panel = document.getElementById('panel-progress');
+  panel.classList.add('active');
+  panel.innerHTML = buildProgressHTML();
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+function setDay(id) {
+  document.querySelectorAll('.tab').forEach(t => t.classList.toggle('active', t.dataset.id === id));
+  document.querySelectorAll('.day-panel').forEach(p => p.classList.toggle('active', p.dataset.id === id));
+  loadDone(id);
+  initWeights(id);
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+// ─── INIT ────────────────────────────────────────────────────────────────────
+const tabs = document.getElementById('tabs');
+const main = document.getElementById('main');
+
+DAYS.forEach((day, i) => {
+  const tab = document.createElement('div');
+  tab.className = 'tab' + (i === 0 ? ' active' : '');
+  tab.dataset.id = day.id;
+  tab.innerHTML = `<div class="tab-day">${day.short}</div><div class="tab-name">${day.name}</div>`;
+  tab.addEventListener('click', () => setDay(day.id));
+  tabs.appendChild(tab);
+  main.appendChild(buildPanel(day, i === 0));
+});
+
+const progTab = document.createElement('div');
+progTab.className = 'tab';
+progTab.id = 'tab-progress';
+progTab.dataset.id = 'progress';
+progTab.innerHTML = `<div class="tab-day">PRG</div><div class="tab-name">STATS</div>`;
+progTab.addEventListener('click', showProgress);
+tabs.appendChild(progTab);
+const progPanel = document.createElement('div');
+progPanel.className = 'day-panel';
+progPanel.id = 'panel-progress';
+progPanel.dataset.id = 'progress';
+main.appendChild(progPanel);
+
+const savedToday = localStorage.getItem('today');
+if (savedToday && DAYS.find(d => d.id === savedToday)) {
+  updateTodayMarkers(savedToday);
+  setDay(savedToday);
+} else {
+  loadDone(DAYS[0].id);
+  initWeights(DAYS[0].id);
+}
+</script>
+</body>
+</html>
