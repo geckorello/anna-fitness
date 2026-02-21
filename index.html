@@ -8,6 +8,8 @@
   <meta name="apple-mobile-web-app-title" content="Anna">
   <meta name="mobile-web-app-capable" content="yes">
   <meta name="theme-color" content="#0c0c0e">
+  <link rel="icon" type="image/svg+xml" href="favicon.svg">
+  <link rel="apple-touch-icon" href="favicon.svg">
   <title>Anna — Training Plan 2026</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -23,8 +25,8 @@
       --violet-dim:  rgba(155,114,232,0.10);
       --violet-mid:  rgba(155,114,232,0.22);
       --text:        #f0ede8;
-      --text-2:      #c8c4be;
-      --text-3:      #908c88;
+      --text-2:      #e8e4de;
+      --text-3:      #c8c4be;
       --red:         #e05050;
       --cyan:        #38bcd4;
       --green:       #48c878;
@@ -65,7 +67,7 @@
     .site-title em { color: var(--violet); font-style: normal; }
     .header-meta {
       font-family: 'IBM Plex Mono', monospace;
-      font-size: 11px;
+      font-size: 13px;
       color: var(--text-2);
       text-align: right;
       line-height: 1.7;
@@ -106,7 +108,7 @@
     }
     .tab-day {
       font-family: 'IBM Plex Mono', monospace;
-      font-size: 9px;
+      font-size: 11px;
       letter-spacing: 1.5px;
       text-transform: uppercase;
       color: var(--text-3);
@@ -129,7 +131,7 @@
     .today-row { margin-top: 12px; display: flex; gap: 10px; flex-wrap: wrap; }
     .today-btn, .complete-btn {
       font-family: 'IBM Plex Mono', monospace;
-      font-size: 10px;
+      font-size: 12px;
       letter-spacing: 1.5px;
       text-transform: uppercase;
       padding: 8px 16px;
@@ -179,7 +181,7 @@
     }
     .ps-lbl {
       font-family: 'IBM Plex Mono', monospace;
-      font-size: 9px;
+      font-size: 11px;
       letter-spacing: 1.2px;
       text-transform: uppercase;
       color: var(--text-3);
@@ -234,7 +236,7 @@
       color: var(--violet);
       margin-bottom: 5px;
     }
-    .deload-desc { font-size: 13px; color: var(--text-2); line-height: 1.55; }
+    .deload-desc { font-size: 14px; color: var(--text-2); line-height: 1.55; }
 
     /* ── COMBINED CHART ──────────────────────────── */
     .combo-card {
@@ -247,7 +249,7 @@
     .combo-card-head {
       padding: 14px 16px 8px;
       font-family: 'IBM Plex Mono', monospace;
-      font-size: 10px;
+      font-size: 12px;
       letter-spacing: 1.5px;
       text-transform: uppercase;
       color: var(--text-3);
@@ -263,7 +265,7 @@
     }
     .legend-item { display: flex; align-items: center; gap: 6px; }
     .legend-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
-    .legend-name { font-size: 11px; color: var(--text-2); }
+    .legend-name { font-size: 13px; color: var(--text-2); }
 
     /* ── WEEKLY VOLUME ───────────────────────────── */
     .vol-card {
@@ -276,7 +278,7 @@
     .vol-card-head {
       padding: 14px 16px 10px;
       font-family: 'IBM Plex Mono', monospace;
-      font-size: 10px;
+      font-size: 12px;
       letter-spacing: 1.5px;
       text-transform: uppercase;
       color: var(--text-3);
@@ -290,7 +292,7 @@
     .vol-row + .vol-row { border-top: 1px solid var(--border); }
     .vol-label {
       font-family: 'IBM Plex Mono', monospace;
-      font-size: 10px;
+      font-size: 12px;
       letter-spacing: 0.5px;
       text-transform: uppercase;
       color: var(--text-2);
@@ -301,7 +303,7 @@
     .vol-bar { height: 100%; border-radius: 5px; transition: width 0.4s ease; }
     .vol-num {
       font-family: 'IBM Plex Mono', monospace;
-      font-size: 10px;
+      font-size: 12px;
       color: var(--text-3);
       width: 38px;
       text-align: right;
@@ -320,7 +322,7 @@
       justify-content: space-between;
       padding: 4px 0 8px;
       font-family: 'IBM Plex Mono', monospace;
-      font-size: 9px;
+      font-size: 11px;
       color: var(--text-3);
     }
     .spark-hint { color: rgba(155,114,232,0.55); }
@@ -348,7 +350,7 @@
     .prog-stat-val.down { color: var(--red); }
     .prog-stat-lbl {
       font-family: 'IBM Plex Mono', monospace;
-      font-size: 9px;
+      font-size: 11px;
       letter-spacing: 1px;
       text-transform: uppercase;
       color: var(--text-3);
@@ -397,7 +399,7 @@
     }
     .pill {
       font-family: 'IBM Plex Mono', monospace;
-      font-size: 9px;
+      font-size: 11px;
       letter-spacing: 1.5px;
       text-transform: uppercase;
       padding: 4px 10px;
@@ -406,10 +408,10 @@
     .pill-strength { background: var(--violet-dim); border: 1px solid var(--violet-mid); color: var(--violet); }
     .pill-recovery { background: rgba(72,200,120,0.08); border: 1px solid rgba(72,200,120,0.25); color: var(--green); }
     .pill-rest     { background: rgba(144,140,136,0.12); border: 1px solid rgba(144,140,136,0.2); color: var(--text-3); }
-    .day-focus { font-size: 14px; color: var(--text-2); }
+    .day-focus { font-size: 15px; color: var(--text-2); }
     .day-dur {
       font-family: 'IBM Plex Mono', monospace;
-      font-size: 11px;
+      font-size: 13px;
       color: var(--text-3);
     }
 
@@ -430,12 +432,12 @@
       color: var(--violet);
       margin-bottom: 5px;
     }
-    .warmup-text { font-size: 13px; color: var(--text-2); line-height: 1.55; }
+    .warmup-text { font-size: 14px; color: var(--text-2); line-height: 1.55; }
 
     /* ── SECTION LABEL ───────────────────────────── */
     .sec-label {
       font-family: 'IBM Plex Mono', monospace;
-      font-size: 9px;
+      font-size: 11px;
       letter-spacing: 2px;
       text-transform: uppercase;
       color: var(--text-3);
@@ -563,7 +565,7 @@
     }
     .ms {
       font-family: 'IBM Plex Mono', monospace;
-      font-size: 10px;
+      font-size: 12px;
       color: var(--text-3);
     }
     .ms.violet { color: var(--violet); }
@@ -581,7 +583,7 @@
     }
     .guide-btn {
       font-family: 'IBM Plex Mono', monospace;
-      font-size: 8px;
+      font-size: 10px;
       letter-spacing: 1px;
       text-transform: uppercase;
       color: var(--violet);
@@ -612,7 +614,7 @@
     }
     .ex-card.open .ex-detail { display: block; }
     .ex-note {
-      font-size: 13px;
+      font-size: 14px;
       color: var(--text-2);
       line-height: 1.6;
     }
@@ -655,7 +657,7 @@
       color: var(--green);
       margin-bottom: 6px;
     }
-    .rec-desc { font-size: 13px; color: var(--text-2); line-height: 1.55; }
+    .rec-desc { font-size: 14px; color: var(--text-2); line-height: 1.55; }
     .rest-block {
       background: var(--surface);
       border: 1px solid var(--border);
@@ -672,14 +674,14 @@
       margin-bottom: 12px;
     }
     .rest-sub {
-      font-size: 14px;
+      font-size: 15px;
       color: var(--text-2);
       margin-bottom: 14px;
     }
     .rest-list { display: flex; flex-direction: column; gap: 6px; align-items: center; }
     .rest-item {
       font-family: 'IBM Plex Mono', monospace;
-      font-size: 12px;
+      font-size: 13px;
       color: var(--text-2);
       display: flex;
       gap: 10px;
@@ -711,7 +713,7 @@
     }
     .prog-row:last-child { border-bottom: none; }
     .prog-dot { width: 8px; height: 8px; border-radius: 50%; margin-top: 5px; flex-shrink: 0; }
-    .prog-text { font-size: 13px; color: var(--text-2); line-height: 1.55; }
+    .prog-text { font-size: 14px; color: var(--text-2); line-height: 1.55; }
     .prog-text strong { color: var(--text); }
 
     /* ── DONE TRACKING ───────────────────────────── */
@@ -749,7 +751,7 @@
 
     .day-reset {
       font-family: 'IBM Plex Mono', monospace;
-      font-size: 9px;
+      font-size: 11px;
       letter-spacing: 1px;
       text-transform: uppercase;
       color: var(--text-3);
@@ -783,7 +785,7 @@
     }
     .wt-plan {
       font-family: 'IBM Plex Mono', monospace;
-      font-size: 10px;
+      font-size: 12px;
       color: var(--text-3);
     }
     /* drum wheel weight picker */
@@ -856,14 +858,14 @@
     }
     .wt-last-lbl {
       font-family: 'IBM Plex Mono', monospace;
-      font-size: 9px;
+      font-size: 11px;
       text-transform: uppercase;
       letter-spacing: 1px;
       color: var(--text-3);
     }
     .wt-last-val {
       font-family: 'IBM Plex Mono', monospace;
-      font-size: 11px;
+      font-size: 13px;
       color: var(--text-2);
     }
     .wt-suggest {
@@ -875,7 +877,7 @@
       border-radius: 4px;
       padding: 2px 8px;
     }
-    .wt-empty { font-size: 11px; color: var(--text-3); font-style: italic; margin-top: 6px; }
+    .wt-empty { font-size: 13px; color: var(--text-3); font-style: italic; margin-top: 6px; }
     .ex-note-wrap {
       margin-top: 12px;
       padding-top: 12px;
