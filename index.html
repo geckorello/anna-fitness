@@ -578,11 +578,9 @@
     .ex-right {
       display: flex;
       flex-direction: column;
-      align-items: flex-end;
-      justify-content: space-between;
+      align-items: center;
+      gap: 6px;
       padding: 8px 12px 8px 4px;
-      gap: 4px;
-      height: 76px;
       flex-shrink: 0;
     }
     .guide-btn {
@@ -633,6 +631,69 @@
       padding: 3px 9px;
       display: inline-block;
       margin-top: 6px;
+    }
+    .rpe-badge {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 14px;
+      font-weight: 600;
+      color: #f0a030;
+      background: rgba(240,160,48,0.14);
+      border: 1px solid rgba(240,160,48,0.35);
+      border-radius: 4px;
+      padding: 3px 8px;
+      white-space: nowrap;
+    }
+    .wt-save-btn {
+      display: none;
+      width: 100%;
+      padding: 10px;
+      margin-top: 6px;
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: var(--green);
+      background: rgba(72,200,120,0.1);
+      border: 1px solid rgba(72,200,120,0.3);
+      border-radius: 6px;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .wt-save-btn:active { background: rgba(72,200,120,0.25); }
+    .wt-save-btn.saved {
+      color: #0c0c0e;
+      background: var(--green);
+      border-color: var(--green);
+    }
+    .equip-toggle {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 12px;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      padding: 3px 9px;
+      border-radius: 4px;
+      cursor: pointer;
+      transition: all 0.18s;
+      background: none;
+      border: 1px solid var(--border-2);
+      color: var(--text-2);
+    }
+    .equip-toggle:hover { border-color: rgba(255,255,255,0.3); color: var(--text); }
+    .equip-toggle.active {
+      background: rgba(155,114,232,0.12);
+      border-color: rgba(155,114,232,0.3);
+      color: var(--violet);
+    }
+    .equip-section-header {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 20px;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      padding: 6px 14px;
+      border-radius: 6px;
+      margin: 20px 0 10px;
+      display: inline-block;
     }
 
     /* ── RECOVERY / REST ──────────────────────────── */
@@ -953,6 +1014,9 @@
       .ex-note { font-size: 15px; line-height: 1.7; }
       .ex-note-wrap .guide-btn { display: inline-flex; font-size: 13px; padding: 8px 14px; }
       .rpe-note { font-size: 13px; padding: 4px 10px; }
+      .rpe-badge { font-size: 13px; }
+      .equip-toggle { font-size: 11px; padding: 5px 12px; }
+      .equip-section-header { font-size: 18px; margin: 16px 0 8px; }
 
       .warmup { padding: 12px; }
       .warmup-text { font-size: 14px; line-height: 1.65; }
@@ -1074,6 +1138,43 @@ const THUMB = {
   'Romanian Deadlift': 'https://upload.wikimedia.org/wikipedia/commons/thumb/e/e8/Romanian-deadlift-1.png/500px-Romanian-deadlift-1.png',
   'Leg Press':         'https://upload.wikimedia.org/wikipedia/commons/thumb/6/6b/Young_man_using_a_leg_press_machine_at_the_gym.jpg/500px-Young_man_using_a_leg_press_machine_at_the_gym.jpg',
   'Lat Pulldown':      'https://upload.wikimedia.org/wikipedia/commons/thumb/2/2a/Diverging_Lat_Pulldown_Machine.jpg/500px-Diverging_Lat_Pulldown_Machine.jpg',
+};
+
+const EX_EQUIP = {
+  'Barbell Hip Thrust':        'barbell',
+  'Romanian Deadlift':         'dumbbell',
+  'Leg Press':                 'machine',
+  'Leg Curl':                  'machine',
+  'Cable Glute Kickback':      'cable',
+  'Dumbbell Lateral Raise':    'dumbbell',
+  'Cable Lateral Raise':       'cable',
+  'Dumbbell Shoulder Press':   'dumbbell',
+  'Face Pulls':                'cable',
+  'Dumbbell Bicep Curl':       'dumbbell',
+  'Hammer Curl':               'dumbbell',
+  'Tricep Pushdown':           'cable',
+  'Overhead Tricep Extension': 'cable',
+  'Bulgarian Split Squat':     'dumbbell',
+  'Walking Lunges':            'dumbbell',
+  'Leg Extension':             'machine',
+  'Seated Hip Abductor':       'machine',
+  'Single-leg Glute Bridge':   'floor',
+  'Lat Pulldown':              'machine',
+  'Pec Deck':                  'machine',
+  'Incline Dumbbell Curl':     'dumbbell',
+  'Plank':                     'floor',
+  'Dead Bugs':                 'floor',
+  'Bird Dog':                  'floor',
+  'Pallof Press':              'cable',
+};
+
+const EQUIP_BADGE = {
+  barbell:  { label:'BARBELL',  color:'#f0a030', bg:'rgba(240,160,48,0.12)'  },
+  dumbbell: { label:'DUMBBELL', color:'#e07840', bg:'rgba(224,120,64,0.12)'  },
+  cable:    { label:'CABLE',    color:'#38bcd4', bg:'rgba(56,188,212,0.12)'  },
+  machine:  { label:'MACHINE',  color:'#48c878', bg:'rgba(72,200,120,0.12)'  },
+  bar:      { label:'BAR',      color:'#b870e8', bg:'rgba(184,112,232,0.12)' },
+  floor:    { label:'FLOOR',    color:'#908c88', bg:'rgba(144,140,136,0.10)' },
 };
 
 function thumb(name) {
@@ -1256,6 +1357,9 @@ function exCard(ex, dayId) {
     ? `<img src="${imgUrl}" alt="${ex.name}" loading="lazy" onerror="this.style.display='none'">`
     : '';
 
+  const equipTag = (typeof EX_EQUIP !== 'undefined' && typeof EQUIP_BADGE !== 'undefined' && EX_EQUIP[ex.name]) ? (() => { const eq = EX_EQUIP[ex.name]; const eb = EQUIP_BADGE[eq]; return eb ? `<span style="font-family:'IBM Plex Mono',monospace;font-size:10px;font-weight:600;letter-spacing:1.5px;color:${eb.color};background:${eb.bg};border:1px solid ${eb.color}40;border-radius:3px;padding:2px 6px;text-transform:uppercase">${eb.label}</span>` : ''; })() : '';
+  const rpeTag = ex.rpe ? `<span class="rpe-badge">${ex.rpe}</span>` : '';
+
   return `
     <div class="ex-card${ex.priority ? ' priority' : ''}" data-ex="${ex.name}" data-day="${dayId}" onclick="toggle(this)">
       <div class="ex-row">
@@ -1276,9 +1380,11 @@ function exCard(ex, dayId) {
             <span class="ms">${ex.sets}×${ex.reps}</span>
             <span class="ms violet ex-plan-wt">${ex.kg}</span>
             <span class="ms">${ex.rest} between sets</span>
+            ${rpeTag}
           </div>
         </div>
         <div class="ex-right">
+          ${equipTag}
           ${ex.guide ? `<a href="${ex.guide}" target="_blank" onclick="event.stopPropagation()" class="guide-btn">SEE HOW ↗</a>` : ''}
           <div class="ex-arrow">▾</div>
         </div>
@@ -1293,7 +1399,8 @@ function exCard(ex, dayId) {
             <div class="drum-fade-top"></div>
             <div class="drum-center-band"></div>
             <div class="drum-fade-bot"></div>
-          </div>
+          </div><!-- wt-drum-outer -->
+          <button class="wt-save-btn" onclick="event.stopPropagation();saveDrumWeight(this)">SAVE WEIGHT</button>
           <div class="wt-history"></div>
         </div>
         <div class="ex-note-wrap">
@@ -1329,6 +1436,7 @@ function buildPanel(day, isFirst) {
         <span class="pill pill-${day.type}">${typeLabels[day.type]}</span>
         <span class="day-focus">${day.focus}</span>
         ${day.dur ? `<span class="day-dur">${day.dur}</span>` : ''}
+        ${day.sections ? `<button class="equip-toggle" data-day="${day.id}" onclick="toggleEquipGroup('${day.id}')">By equipment</button>` : ''}
         ${day.sections ? `<button class="day-reset" onclick="resetDay('${day.id}')">Reset workout</button>` : ''}
       </div>
       <div class="today-row">
@@ -1369,6 +1477,7 @@ function buildPanel(day, isFirst) {
     if (day.warmup) {
       html += `<div class="warmup"><div class="warmup-lbl">Warm-up · 5 min</div><div class="warmup-text">${day.warmup}</div></div>`;
     }
+    html += `<div class="sections-wrap" data-day="${day.id}">`;
     day.sections.forEach(sec => {
       if (sec.finisher) {
         html += `<div class="finisher-div"><div class="finisher-line"></div><div class="finisher-lbl">${sec.finisherLabel || 'Finisher'}</div><div class="finisher-line"></div></div>`;
@@ -1379,6 +1488,7 @@ function buildPanel(day, isFirst) {
       sec.exercises.forEach(ex => { html += exCard(ex, day.id); });
       html += `</div>`;
     });
+    html += `</div>`;
     html += progCard();
   }
 
@@ -1405,6 +1515,11 @@ function toggleDone(btn) {
   const key = `done:${dayId}:${exName}`;
   isDone ? localStorage.setItem(key, '1') : localStorage.removeItem(key);
   if (isDone) {
+    setTimeout(() => card.classList.remove('open'), 400);
+    const startKey = 'duration-start:' + dayId;
+    if (!localStorage.getItem(startKey)) {
+      localStorage.setItem(startKey, Date.now().toString());
+    }
     const wt = getWt(exName);
     if (wt !== null) {
       logWtHistory(exName, wt);
@@ -1431,6 +1546,13 @@ function showToast(msg) {
 }
 
 function advanceToNextDay(currentDayId) {
+  const startKey = 'duration-start:' + currentDayId;
+  const startTime = localStorage.getItem(startKey);
+  if (startTime) {
+    const minutes = Math.round((Date.now() - parseInt(startTime)) / 60000);
+    if (minutes > 0 && minutes < 300) logDuration(currentDayId, minutes);
+    localStorage.removeItem(startKey);
+  }
   const idx = DAYS.findIndex(d => d.id === currentDayId);
   const next = DAYS[(idx + 1) % DAYS.length];
   showToast('Day complete \u2713  \u2192  ' + next.short + ' \u00b7 ' + next.name);
@@ -1449,6 +1571,7 @@ function resetDay(dayId) {
     card.classList.remove('done');
     localStorage.removeItem(`done:${dayId}:${card.dataset.ex}`);
   });
+  localStorage.removeItem('duration-start:' + dayId);
 }
 
 // ── TODAY TRACKING ──────────────────────────────────────────────────────────
@@ -1477,6 +1600,40 @@ function setToday(dayId) {
   resetDay(dayId);
   updateTodayMarkers(dayId);
   setDay(dayId);
+}
+
+// ── DURATION TRACKING ──────────────────────────────────────────────────────
+
+function getDurations(dayId) {
+  try { return JSON.parse(localStorage.getItem('duration:' + dayId) || '[]'); }
+  catch { return []; }
+}
+
+function logDuration(dayId, minutes) {
+  const today = new Date().toISOString().slice(0, 10);
+  const durations = getDurations(dayId);
+  if (durations.length > 0 && durations[durations.length - 1].date === today) {
+    durations[durations.length - 1].minutes = minutes;
+  } else {
+    durations.push({ date: today, minutes });
+  }
+  localStorage.setItem('duration:' + dayId, JSON.stringify(durations));
+}
+
+function avgDuration(dayId) {
+  const durations = getDurations(dayId);
+  if (durations.length === 0) return null;
+  const avg = Math.round(durations.reduce((s, d) => s + d.minutes, 0) / durations.length);
+  return { avg, count: durations.length };
+}
+
+function updateDayDuration(dayId) {
+  const el = document.querySelector(`.day-panel[data-id="${dayId}"] .day-dur`);
+  if (!el) return;
+  const info = avgDuration(dayId);
+  if (info) {
+    el.textContent = `~${info.avg} min (avg ${info.count} session${info.count > 1 ? 's' : ''})`;
+  }
 }
 
 // ── WEIGHT TRACKING ────────────────────────────────────────────────────────
@@ -1591,12 +1748,15 @@ function buildDrum(section, exName) {
   drum.addEventListener('scroll', () => {
     const idx = Math.round(drum.scrollTop / DRUM_H);
     _drumSelect(drum, idx);
+    // Show save button on scroll
+    const saveBtn = section.querySelector('.wt-save-btn');
+    if (saveBtn && !saveBtn.classList.contains('saved')) {
+      saveBtn.style.display = 'block';
+      saveBtn.textContent = 'SAVE WEIGHT';
+    }
     clearTimeout(scrollTimer);
     scrollTimer = setTimeout(() => {
       const wt = idx * DRUM_STEP;
-      saveWt(exName, wt);
-      section.querySelector('.wt-history').innerHTML = historyHtml(exName);
-      setCardWt(section.closest('.ex-card'), wt);
     }, 150);
   }, { passive: true });
 }
@@ -1608,12 +1768,93 @@ function _drumSelect(drum, idx) {
   drum._selIdx = idx;
 }
 
+function saveDrumWeight(btn) {
+  const section = btn.closest('.wt-section');
+  const exName = section.dataset.ex;
+  const drum = section.querySelector('.wt-drum');
+  const idx = Math.round(drum.scrollTop / DRUM_H);
+  const wt = idx * DRUM_STEP;
+  saveWt(exName, wt);
+  section.querySelector('.wt-history').innerHTML = historyHtml(exName);
+  setCardWt(section.closest('.ex-card'), wt);
+  btn.textContent = 'SAVED \u2713';
+  btn.classList.add('saved');
+  setTimeout(() => {
+    btn.style.display = 'none';
+    btn.textContent = 'SAVE WEIGHT';
+    btn.classList.remove('saved');
+  }, 1200);
+}
+
 function initWeights(dayId) {
   document.querySelectorAll(`.day-panel[data-id="${dayId}"] .ex-card`).forEach(card => {
     const exName = card.dataset.ex;
     const wt = getWt(exName);
     if (wt !== null) setCardWt(card, wt);
   });
+}
+
+// ── EQUIPMENT GROUPING ─────────────────────────────────────────────────────
+
+const EQUIP_ORDER = ['barbell', 'dumbbell', 'cable', 'machine', 'bar', 'floor'];
+
+function buildEquipView(dayId) {
+  const panel = document.querySelector(`.day-panel[data-id="${dayId}"]`);
+  const wrap = panel.querySelector('.sections-wrap');
+  const day = DAYS.find(d => d.id === dayId);
+  const allExercises = [];
+  day.sections.forEach(sec => { sec.exercises.forEach(ex => allExercises.push(ex)); });
+  const groups = {};
+  allExercises.forEach(ex => {
+    const eq = EX_EQUIP[ex.name] || 'other';
+    if (!groups[eq]) groups[eq] = [];
+    groups[eq].push(ex);
+  });
+  let html = '';
+  EQUIP_ORDER.forEach(eq => {
+    if (!groups[eq]) return;
+    const badge = EQUIP_BADGE[eq];
+    html += `<div class="equip-section-header" style="color:${badge.color};background:${badge.bg};border:1px solid ${badge.color}40">${badge.label} STATION</div>`;
+    html += `<div class="ex-list">`;
+    groups[eq].forEach(ex => { html += exCard(ex, dayId); });
+    html += `</div>`;
+  });
+  if (groups['other']) {
+    html += `<div class="sec-label">OTHER</div><div class="ex-list">`;
+    groups['other'].forEach(ex => { html += exCard(ex, dayId); });
+    html += `</div>`;
+  }
+  wrap.innerHTML = html;
+  loadDone(dayId);
+  initWeights(dayId);
+}
+
+function buildOriginalView(dayId) {
+  const panel = document.querySelector(`.day-panel[data-id="${dayId}"]`);
+  const wrap = panel.querySelector('.sections-wrap');
+  const day = DAYS.find(d => d.id === dayId);
+  let html = '';
+  day.sections.forEach(sec => {
+    if (sec.finisher) {
+      html += `<div class="finisher-div"><div class="finisher-line"></div><div class="finisher-lbl">${sec.finisherLabel || sec.label} · 8 min</div><div class="finisher-line"></div></div>`;
+    } else {
+      html += `<div class="sec-label">${sec.label}</div>`;
+    }
+    html += `<div class="ex-list">`;
+    sec.exercises.forEach(ex => { html += exCard(ex, dayId); });
+    html += `</div>`;
+  });
+  wrap.innerHTML = html;
+  loadDone(dayId);
+  initWeights(dayId);
+}
+
+function toggleEquipGroup(dayId) {
+  const btn = document.querySelector(`.equip-toggle[data-day="${dayId}"]`);
+  const isActive = btn.classList.toggle('active');
+  localStorage.setItem('equip-group:' + dayId, isActive ? '1' : '0');
+  if (isActive) buildEquipView(dayId);
+  else buildOriginalView(dayId);
 }
 
 // ── PROGRESS PAGE ──────────────────────────────────────────────────────────
@@ -1934,6 +2175,16 @@ progPanel.className = 'day-panel';
 progPanel.id = 'panel-progress';
 progPanel.dataset.id = 'progress';
 main.appendChild(progPanel);
+
+DAYS.forEach(day => { if (day.dur) updateDayDuration(day.id); });
+
+DAYS.forEach(day => {
+  if (!day.sections) return;
+  if (localStorage.getItem('equip-group:' + day.id) !== '0') {
+    const btn = document.querySelector(`.equip-toggle[data-day="${day.id}"]`);
+    if (btn) { btn.classList.add('active'); buildEquipView(day.id); }
+  }
+});
 
 const savedToday = localStorage.getItem('today');
 if (savedToday && DAYS.find(d => d.id === savedToday)) {
